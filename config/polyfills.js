@@ -20,3 +20,10 @@ Object.assign = require('object-assign');
 if (process.env.NODE_ENV === 'test') {
   require('raf').polyfill(global);
 }
+
+// Enzyme setup
+const Enzyme = require('enzyme');
+const EnzymeAdapter = require('enzyme-adapter-react-16');
+
+// Setup enzyme's react adapter
+Enzyme.configure({ adapter: new EnzymeAdapter() });

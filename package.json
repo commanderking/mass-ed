@@ -46,6 +46,9 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "enzyme-to-json": "^3.2.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.1"
@@ -87,7 +90,8 @@
       "web.jsx",
       "jsx",
       "node"
-    ]
+    ],
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   },
   "babel": {
     "presets": [

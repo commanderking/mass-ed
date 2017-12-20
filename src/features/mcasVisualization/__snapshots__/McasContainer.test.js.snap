@@ -1,0 +1,512 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`McasContainer renders graph components renders correct bar component 1`] = `
+<VictoryBar
+  categories={
+    Object {
+      "x": Array [
+        "Exceeding",
+        "Meeting",
+        "Partially Meeting",
+        "Not Meeting",
+      ],
+    }
+  }
+  containerComponent={
+    <VictoryContainer
+      className="VictoryContainer"
+      portalComponent={<Portal />}
+      portalZIndex={99}
+      responsive={true}
+    />
+  }
+  data={
+    Array [
+      Object {
+        "x": "Exceeding",
+        "y": 3,
+      },
+      Object {
+        "x": "Meeting",
+        "y": 39,
+      },
+      Object {
+        "x": "Partially Meeting",
+        "y": 50,
+      },
+      Object {
+        "x": "Not Meeting",
+        "y": 8,
+      },
+    ]
+  }
+  dataComponent={<Bar />}
+  groupComponent={
+    <g
+      role="presentation"
+    />
+  }
+  labelComponent={
+    <VictoryLabel
+      capHeight={0.71}
+      lineHeight={1}
+    />
+  }
+  labels={[Function]}
+  scale="linear"
+  standalone={true}
+  style={
+    Object {
+      "data": Object {
+        "fill": "#c43a31",
+        "stroke": "black",
+        "strokeWidth": 2,
+      },
+    }
+  }
+  theme={
+    Object {
+      "area": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "style": Object {
+          "data": Object {
+            "fill": "#252525",
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 10,
+            "stroke": "transparent",
+            "textAnchor": "middle",
+          },
+        },
+        "width": 450,
+      },
+      "axis": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "style": Object {
+          "axis": Object {
+            "fill": "transparent",
+            "stroke": "#252525",
+            "strokeLinecap": "round",
+            "strokeLinejoin": "round",
+            "strokeWidth": 1,
+          },
+          "axisLabel": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 25,
+            "stroke": "transparent",
+            "textAnchor": "middle",
+          },
+          "grid": Object {
+            "fill": "none",
+            "pointerEvents": "visible",
+            "stroke": "none",
+          },
+          "tickLabels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 10,
+            "stroke": "transparent",
+          },
+          "ticks": Object {
+            "fill": "transparent",
+            "size": 1,
+            "stroke": "transparent",
+          },
+        },
+        "width": 450,
+      },
+      "bar": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "style": Object {
+          "data": Object {
+            "fill": "#252525",
+            "padding": 8,
+            "strokeWidth": 0,
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 10,
+            "stroke": "transparent",
+          },
+        },
+        "width": 450,
+      },
+      "candlestick": Object {
+        "candleColors": Object {
+          "negative": "#252525",
+          "positive": "#ffffff",
+        },
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "style": Object {
+          "data": Object {
+            "stroke": "#252525",
+            "strokeWidth": 1,
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 10,
+            "stroke": "transparent",
+            "textAnchor": "middle",
+          },
+        },
+        "width": 450,
+      },
+      "chart": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "width": 450,
+      },
+      "errorbar": Object {
+        "borderWidth": 8,
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "style": Object {
+          "data": Object {
+            "fill": "transparent",
+            "stroke": "#252525",
+            "strokeWidth": 2,
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 10,
+            "stroke": "transparent",
+            "textAnchor": "middle",
+          },
+        },
+        "width": 450,
+      },
+      "group": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "width": 450,
+      },
+      "legend": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "gutter": 10,
+        "orientation": "vertical",
+        "style": Object {
+          "data": Object {
+            "type": "circle",
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 10,
+            "stroke": "transparent",
+          },
+          "title": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 5,
+            "stroke": "transparent",
+          },
+        },
+        "titleOrientation": "top",
+      },
+      "line": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "style": Object {
+          "data": Object {
+            "fill": "transparent",
+            "stroke": "#252525",
+            "strokeWidth": 2,
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 10,
+            "stroke": "transparent",
+            "textAnchor": "middle",
+          },
+        },
+        "width": 450,
+      },
+      "pie": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 400,
+        "padding": 50,
+        "style": Object {
+          "data": Object {
+            "padding": 10,
+            "stroke": "transparent",
+            "strokeWidth": 1,
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 20,
+            "stroke": "transparent",
+          },
+        },
+        "width": 400,
+      },
+      "scatter": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "style": Object {
+          "data": Object {
+            "fill": "#252525",
+            "stroke": "transparent",
+            "strokeWidth": 0,
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 10,
+            "stroke": "transparent",
+            "textAnchor": "middle",
+          },
+        },
+        "width": 450,
+      },
+      "stack": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "width": 450,
+      },
+      "tooltip": Object {
+        "cornerRadius": 5,
+        "flyoutStyle": Object {
+          "fill": "#f0f0f0",
+          "pointerEvents": "none",
+          "stroke": "#252525",
+          "strokeWidth": 1,
+        },
+        "pointerLength": 10,
+        "style": Object {
+          "fill": "#252525",
+          "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+          "fontSize": 14,
+          "letterSpacing": "normal",
+          "padding": 5,
+          "pointerEvents": "none",
+          "stroke": "transparent",
+          "textAnchor": "middle",
+        },
+      },
+      "voronoi": Object {
+        "colorScale": Array [
+          "#252525",
+          "#525252",
+          "#737373",
+          "#969696",
+          "#bdbdbd",
+          "#d9d9d9",
+          "#f0f0f0",
+        ],
+        "height": 300,
+        "padding": 50,
+        "style": Object {
+          "data": Object {
+            "fill": "transparent",
+            "stroke": "transparent",
+            "strokeWidth": 0,
+          },
+          "flyout": Object {
+            "fill": "#f0f0f0",
+            "pointerEvents": "none",
+            "stroke": "#252525",
+            "strokeWidth": 1,
+          },
+          "labels": Object {
+            "fill": "#252525",
+            "fontFamily": "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif",
+            "fontSize": 14,
+            "letterSpacing": "normal",
+            "padding": 5,
+            "pointerEvents": "none",
+            "stroke": "transparent",
+            "textAnchor": "middle",
+          },
+        },
+        "width": 450,
+      },
+    }
+  }
+/>
+`;
+
+exports[`McasContainer renders graph components renders correct graph title 1`] = `
+<VictoryLabel
+  capHeight={0.71}
+  lineHeight={1}
+  text="Abby Kelley Foster Charter Public School"
+  textAnchor="middle"
+  x={225}
+  y={20}
+/>
+`;
+
+exports[`McasContainer renders with correct structure 1`] = `
+<div>
+  <div
+    className="schoolSelectWrapper"
+  >
+    <VirtualizedSelect
+      async={false}
+      maxHeight={200}
+      onChange={[Function]}
+      optionHeight={35}
+      options={
+        Array [
+          Object {
+            "index": 0,
+            "label": "Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School",
+            "value": "Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School",
+          },
+          Object {
+            "index": 1,
+            "label": "Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School",
+            "value": "Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School",
+          },
+        ]
+      }
+      value="Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School"
+    />
+    <button
+      onClick={[Function]}
+    >
+      Add School
+    </button>
+  </div>
+</div>
+`;
