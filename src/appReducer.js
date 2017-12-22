@@ -2,19 +2,17 @@ import { mcasActionTypes } from 'mcasVisualization/mcasActions';
 import { combineReducers } from 'redux';
 
 const selectedSchoolIndexes = (state = [], action) => {
-  console.log('Im in the reducer');
-  console.log(action);
   switch (action.type) {
     case mcasActionTypes.ADD_SCHOOL:
-      console.log('in add school');
-      console.log([
-        ...state,
-        action.schoolIndex
-      ])
       return [
         ...state,
         action.schoolIndex
       ]
+    case mcasActionTypes.DELETE_SCHOOL:
+      const newState = state.filter(schoolIndex => {
+        return schoolIndex !== action.schoolIndex
+      })
+      return newState;
     default:
       return state
   }
