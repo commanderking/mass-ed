@@ -15,7 +15,8 @@ describe('McasContainer', () => {
       selectedSchoolIndexes: [],
       dropdownSchoolIndex: 0,
       addSchoolClick: jest.fn(),
-      selectSchool: jest.fn()
+      selectSchool: jest.fn(),
+      deleteSchool: jest.fn()
     }
   });
 
@@ -37,6 +38,12 @@ describe('McasContainer', () => {
     expect(wrapper.find(VictoryChart)).toHaveLength(expectedNumberOfSchools);
     expect(wrapper.find(VictoryBar)).toHaveLength(expectedNumberOfSchools);
     expect(wrapper.find(VictoryLabel)).toHaveLength(expectedNumberOfSchools);
+  });
+
+  it('renders close graph button with each graph', () => {
+    mockProps.selectedSchoolIndexes = [0, 1];
+    const wrapper = shallow(<UnwrappedMcasContainer {...mockProps} />);
+    expect(wrapper.find('.closeGraphButton')).toHaveLength(mockProps.selectedSchoolIndexes.length);
   });
 
   describe('renders graph components', () => {
@@ -72,5 +79,14 @@ describe('McasContainer', () => {
     buttonWrapper.simulate('click');
     expect(mockProps.addSchoolClick).toHaveBeenCalledTimes(1);
     expect(mockProps.addSchoolClick).toHaveBeenCalledWith(mockProps.dropdownSchoolIndex);
+  });
+
+  it('clicking remove school button fires correct action', () => {
+    mockProps.selectedSchoolIndexes = [0, 1];
+    const wrapper = shallow(<UnwrappedMcasContainer {...mockProps} />);
+    const closeButton = wrapper.find('.closeGraphButton').first();
+    closeButton.simulate('click');
+    expect(mockProps.deleteSchool).toHaveBeenCalledTimes(1);
+    expect(mockProps.deleteSchool).toHaveBeenCalledWith(mockProps.selectedSchoolIndexes[0]);
   });
 })

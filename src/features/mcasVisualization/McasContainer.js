@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { VictoryChart, VictoryBar, VictoryAxis, VictoryLabel } from 'victory';
-import { addSchoolAction, selectSchoolAction } from './mcasActions';
+import { addSchoolAction, selectSchoolAction, deleteSchoolAction } from './mcasActions';
 import { mcasData } from './mcasData';
 import VirtualizedSelect from 'react-virtualized-select';
 
@@ -58,7 +58,7 @@ const getSchoolNames = (allSchools) => {
   return data;
 }
 
-export const UnwrappedMcasContainer = ({ allSchools, selectedSchoolIndexes, dropdownSchoolIndex, addSchoolClick, selectSchool }) => (
+export const UnwrappedMcasContainer = ({ allSchools, selectedSchoolIndexes, dropdownSchoolIndex, addSchoolClick, selectSchool, deleteSchool }) => (
   <div>
     <div className="schoolSelectWrapper">
       <VirtualizedSelect
@@ -71,7 +71,6 @@ export const UnwrappedMcasContainer = ({ allSchools, selectedSchoolIndexes, drop
         value={allSchools[dropdownSchoolIndex][mcasDataConstants.SCHOOL_NAME]}
       />
       <button onClick={ () => {
-        console.log('school selected');
         addSchoolClick(dropdownSchoolIndex);
       }}>Add School</button>
     </div>
@@ -111,7 +110,14 @@ export const UnwrappedMcasContainer = ({ allSchools, selectedSchoolIndexes, drop
               tickFormat={(t) => `${Math.round(t)}%`}
             />
           </VictoryChart>
-          <button>x</button>
+          <button
+            className="closeGraphButton"
+            onClick={() => {
+              deleteSchool(schoolIndex);
+            }}
+          >
+            X
+          </button>
         </div>
       )
     })}
@@ -136,6 +142,9 @@ const mapDispatchToProps = dispatch => {
     },
     selectSchool: schoolIndex => {
       dispatch(selectSchoolAction(schoolIndex))
+    },
+    deleteSchool: schoolIndex => {
+      dispatch(deleteSchoolAction(schoolIndex))
     }
   }
 }

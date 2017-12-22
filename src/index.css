@@ -9,4 +9,11 @@ body {
   height: 300px;
   margin: 25px;
   display: inline-block;
+  position: relative;
+}
+
+.closeGraphButton {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
