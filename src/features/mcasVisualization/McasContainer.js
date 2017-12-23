@@ -2,9 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryGroup, VictoryLegend, VictoryTheme } from 'victory';
+import { VictoryChart, VictoryBar, VictoryLabel, VictoryGroup } from 'victory';
 import { addSchoolAction, selectSchoolAction, deleteSchoolAction } from './mcasActions';
 import { mcasData } from './mcasData';
+import { SchoolLabel } from './components/SchoolLabel';
 import VirtualizedSelect from 'react-virtualized-select';
 
 // This only needs to be done once; probably during bootstrapping process.
@@ -50,34 +51,32 @@ const mapCategoriesToRawDataValue = {
   [categories[3]] : 'NM %'
 };
 
-const formatDataForChart = (school, index) => {
-  console.log(colors[index]);
-  return categories.map(category => {
-    return { x: category, y: school[mapCategoriesToRawDataValue[category]], fill: colors[index]}
-  })
+const parseSchoolNameFromCompleteName = schoolName => {
+  const splitSchoolName = schoolName.split(' - ');
+  const districtNameWords = splitSchoolName[0].split(' ');
+  const schoolNameWords = splitSchoolName[1].split(' ');
+  if (districtNameWords[0] === schoolNameWords[0]) {
+    return splitSchoolName[1];
+  }
+  return schoolName;
 }
 
-const formatDataForLegend = (allSchools, selectedSchoolIndexes) => {
-  return selectedSchoolIndexes.map((schoolIndex, index) => {
+const formatDataForChart = (school, index) => {
+  return categories.map(category => {
     return {
-      name: allSchools[schoolIndex][mcasDataConstants.SCHOOL_NAME].split(' - ')[1],
-      symbol: {
-        fill: colors[index],
-        type: 'star'
-      }
+      x: category,
+      y: school[mapCategoriesToRawDataValue[category]],
+      fill: colors[index]
     }
   });
 }
 
-const parseSchoolName = (schoolNameWithDistrict) => {
-  return schoolNameWithDistrict.split('-')[1].trim()
-}
-
 const getSchoolNames = (allSchools) => {
   const data = allSchools.map((school, index) => {
+    const schoolName = parseSchoolNameFromCompleteName(school[mcasDataConstants.SCHOOL_NAME]);
     return {
-      value: school[mcasDataConstants.SCHOOL_NAME],
-      label: school[mcasDataConstants.SCHOOL_NAME],
+      value: schoolName,
+      label: schoolName,
       index: index
     }
   });
@@ -85,44 +84,52 @@ const getSchoolNames = (allSchools) => {
 }
 
 export const UnwrappedMcasContainer = ({ allSchools, selectedSchoolIndexes, dropdownSchoolIndex, addSchoolClick, selectSchool, deleteSchool }) => {
-  const showLegend = selectedSchoolIndexes.length === 0 ? false : true;
+  const selectedSchoolName = parseSchoolNameFromCompleteName(allSchools[dropdownSchoolIndex][mcasDataConstants.SCHOOL_NAME]);
   return (
     <div>
       <div className="schoolSelectWrapper">
         <VirtualizedSelect
           options={getSchoolNames(allSchools)}
+          optionHeight={50}
           onChange={(selectValue) => {
             if (selectValue) {
               selectSchool(selectValue.index);
             }
           }}
-          value={allSchools[dropdownSchoolIndex][mcasDataConstants.SCHOOL_NAME]}
+          value={selectedSchoolName}
         />
         <button onClick={ () => {
           addSchoolClick(dropdownSchoolIndex);
         }}>Add School</button>
       </div>
+      <div className='schoolLabelsWrapper'>
+        <h3>Selected Schools</h3>
+        { selectedSchoolIndexes.map((schoolIndex, index) => {
+          const schoolData = allSchools[schoolIndex];
+          const schoolName = parseSchoolNameFromCompleteName(schoolData[mcasDataConstants.SCHOOL_NAME]);
+          return (
+            <SchoolLabel
+              key={schoolName}
+              schoolName={schoolName}
+              schoolIndex={schoolIndex}
+              deleteSchool={deleteSchool}
+            />
+          )
+        })}
+      </div>
       <div className='mcasChartWrapper'>
         <VictoryChart
           domainPadding={graphConstants.DOMAIN_PADDING}
         >
-          { showLegend &&
-            <VictoryLegend x={125} y={10}
-              orientation="horizontal"
-              gutter={20}
-              padding={0}
-              rowGutter={-10}
-              itemsPerRow={1}
-              x={0}
-              y={0}
-              style={{ labels: { fontSize: 10 }}}
-
-              data={formatDataForLegend(allSchools, selectedSchoolIndexes)}
-            />
-          }
-
-          <VictoryGroup offset={20}
-            padding={0}
+          <VictoryLabel
+            text={'MCAS 2017 Scores'}
+            textAnchor='middle'
+            x={250}
+            y={20}
+          />
+          <VictoryGroup
+            offset={20}
+            padding={-50}
             colorScale={"qualitative"}
             categories={{ x: categories}}
           >
@@ -146,55 +153,8 @@ export const UnwrappedMcasContainer = ({ allSchools, selectedSchoolIndexes, drop
           </VictoryGroup>
         </VictoryChart>
       </div>
-      {selectedSchoolIndexes.map((schoolIndex, index) => {
-        const schoolData = allSchools[schoolIndex];
-        return (
-          <div key={schoolData[mcasDataConstants.SCHOOL_NAME]} className='chartWrapper'>
-            <VictoryChart domainPadding={graphConstants.DOMAIN_PADDING} >
-              <VictoryLabel
-                text={parseSchoolName(schoolData[mcasDataConstants.SCHOOL_NAME])}
-                textAnchor="middle"
-                x={graphConstants.TITLE_X}
-                y={graphConstants.TITLE_Y}
-              />
-              <VictoryBar
-                data={formatDataForChart(schoolData, index)}
-                categories={{ x: categories}}
-                labels={(d) => `${d.y}%`}
-                style={{
-                  data: {
-                    fill: graphConstants.BAR_FILL,
-                    stroke: graphConstants.BAR_STROKE,
-                    strokeWidth: graphConstants.BAR_STROKE_WIDTH
-                  }
-                }}
-                />
-              <VictoryAxis
-                style={{
-                  axisLabel: { padding: graphConstants.X_AXIS_LABEL_PADDING }
-                }}
-              />
-              <VictoryAxis dependentAxis
-                label={graphConstants.Y_AXIS_TEXT}
-                style={{
-                  axisLabel: { padding: graphConstants.Y_AXIS_LABEL_PADDING }
-                }}
-                tickFormat={(t) => `${Math.round(t)}%`}
-              />
-            </VictoryChart>
-            <button
-              className="closeGraphButton"
-              onClick={() => {
-                deleteSchool(schoolIndex);
-              }}
-            >
-              X
-            </button>
-          </div>
-        )
-      })}
     </div>
-  );
+  )
 };
 
 const mapStateToProps = state => {

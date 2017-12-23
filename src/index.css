@@ -5,23 +5,36 @@ body {
 }
 
 .mcasChartWrapper {
-  width: 800px;
-  height: 650px;
-  margin: 25px;
   display: inline-block;
   position: relative;
+  vertical-align: top;
+  width: 600px;
+}
+
+.schoolLabelsWrapper {
+  height: 650px;
+  width: 400px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.schoolLabelWrapper {
+  position: relative;
+}
+
+.schoolSelectWrapper {
+  width: 500px;
+  margin: auto;
 }
 
 .chartWrapper {
   width: 450px;
   height: 300px;
-  margin: 25px;
+  margin: 25px 0px;
   display: inline-block;
   position: relative;
 }
 
 .closeGraphButton {
-  position: absolute;
-  top: 0;
-  right: 0;
+  display: inline-block;
 }
