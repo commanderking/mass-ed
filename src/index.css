@@ -4,6 +4,14 @@ body {
   font-family: sans-serif;
 }
 
+.mcasChartWrapper {
+  width: 800px;
+  height: 650px;
+  margin: 25px;
+  display: inline-block;
+  position: relative;
+}
+
 .chartWrapper {
   width: 450px;
   height: 300px;
