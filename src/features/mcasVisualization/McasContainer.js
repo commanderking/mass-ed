@@ -1,4 +1,4 @@
-// flow
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -12,7 +12,9 @@ import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 
-const parseSchoolNameFromCompleteName = schoolName => {
+import type { schoolsMcasType, schoolMcasType } from './mcas.flow.js';
+
+const parseSchoolNameFromCompleteName = (schoolName: string) : string => {
   const splitSchoolName = schoolName.split(' - ');
   const districtNameWords = splitSchoolName[0].split(' ');
   const schoolNameWords = splitSchoolName[1].split(' ');
@@ -22,7 +24,16 @@ const parseSchoolNameFromCompleteName = schoolName => {
   return schoolName;
 }
 
-const getSchoolNames = (allSchools) => {
+type SchoolNameForSelector = {
+  value: string,
+  label: string,
+  index: number,
+  schoolCode: number
+};
+
+type schoolNamesForSelector = Array<SchoolNameForSelector>;
+
+const getSchoolNamesForSelector = (allSchools: schoolsMcasType): schoolNamesForSelector => {
   const data = allSchools.map((school, index) => {
     const schoolName = parseSchoolNameFromCompleteName(school.schoolName);
     return {
@@ -35,7 +46,21 @@ const getSchoolNames = (allSchools) => {
   return data;
 }
 
-class UnwrappedMcasContainer extends Component {
+type Props = {
+  selectedSchools: Array<schoolMcasType>,
+  dropdownSchoolIndex: number,
+  // TODO: Need to figure out how to handle functions
+  addSchoolClick: any,
+  selectSchool: any,
+  deleteSchool: any
+};
+
+type State = {
+  loading: boolean
+}
+
+class UnwrappedMcasContainer extends Component<Props, State> {
+  mcasData: Array<*>;
   constructor(props) {
     super(props);
     this.state = {
@@ -77,7 +102,6 @@ class UnwrappedMcasContainer extends Component {
     }
 
     fetchAllSchoolsArray();
-
   }
   render() {
     const { selectedSchools, dropdownSchoolIndex, addSchoolClick, selectSchool, deleteSchool } = this.props;
@@ -92,7 +116,7 @@ class UnwrappedMcasContainer extends Component {
       <div>
         <div className="schoolSelectWrapper">
           <VirtualizedSelect
-            options={getSchoolNames(this.mcasData)}
+            options={getSchoolNamesForSelector(this.mcasData)}
             optionHeight={50}
             onChange={(selectValue) => {
               if (selectValue) {
