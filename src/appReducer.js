@@ -3,6 +3,19 @@ import { combineReducers } from 'redux';
 
 const selectedSchoolIndexes = (state = [], action) => {
   switch (action.type) {
+    case mcasActionTypes.ADD_SCHOOL_REQUESTED:
+      return [
+        ...state
+      ];
+    case mcasActionTypes.ADD_SCHOOL_SUCCEEDED:
+      return [
+        ...state,
+        action.payload.schoolData
+      ];
+    case mcasActionTypes.ADD_SCHOOL_FAILED:
+      return [
+        ...state
+      ];
     case mcasActionTypes.ADD_SCHOOL:
       return [
         ...state,

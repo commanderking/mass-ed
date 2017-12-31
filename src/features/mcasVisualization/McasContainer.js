@@ -1,10 +1,9 @@
 // flow
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { VictoryChart, VictoryBar, VictoryLabel, VictoryGroup } from 'victory';
 import { addSchoolAction, selectSchoolAction, deleteSchoolAction } from './mcasActions';
-import { mcasData } from './mcasData';
 import { SchoolLabel } from './components/SchoolLabel';
 import VirtualizedSelect from 'react-virtualized-select';
 
@@ -14,10 +13,6 @@ import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 
 const categories = ['Exceeding', 'Meeting', 'Partially Meeting', 'Not Meeting'];
-
-const mcasDataConstants = {
-  SCHOOL_NAME: 'School Name'
-}
 
 /**
   * #aec6cf - pastel blue
@@ -45,10 +40,10 @@ export const graphConstants = {
 }
 
 const mapCategoriesToRawDataValue = {
-  [categories[0]] : 'E %',
-  [categories[1]] : 'M %',
-  [categories[2]] : 'PM %',
-  [categories[3]] : 'NM %'
+  [categories[0]] : 'exceededPercent',
+  [categories[1]] : 'metPercent',
+  [categories[2]] : 'partiallyMetPercent',
+  [categories[3]] : 'notMetPercent'
 };
 
 const parseSchoolNameFromCompleteName = schoolName => {
@@ -73,94 +68,146 @@ const formatDataForChart = (school, index) => {
 
 const getSchoolNames = (allSchools) => {
   const data = allSchools.map((school, index) => {
-    const schoolName = parseSchoolNameFromCompleteName(school[mcasDataConstants.SCHOOL_NAME]);
+    const schoolName = parseSchoolNameFromCompleteName(school.schoolName);
     return {
       value: schoolName,
       label: schoolName,
-      index: index
+      index: index,
+      schoolCode: school.schoolCode
     }
   });
   return data;
 }
 
-export const UnwrappedMcasContainer = ({ allSchools, selectedSchoolIndexes, dropdownSchoolIndex, addSchoolClick, selectSchool, deleteSchool }) => {
-  const selectedSchoolName = parseSchoolNameFromCompleteName(allSchools[dropdownSchoolIndex][mcasDataConstants.SCHOOL_NAME]);
-  return (
-    <div>
-      <div className="schoolSelectWrapper">
-        <VirtualizedSelect
-          options={getSchoolNames(allSchools)}
-          optionHeight={50}
-          onChange={(selectValue) => {
-            if (selectValue) {
-              selectSchool(selectValue.index);
-            }
-          }}
-          value={selectedSchoolName}
-        />
-        <button onClick={ () => {
-          addSchoolClick(dropdownSchoolIndex);
-        }}>Add School</button>
-      </div>
-      <div className='schoolLabelsWrapper'>
-        <h3>Selected Schools</h3>
-        { selectedSchoolIndexes.map((schoolIndex, index) => {
-          const schoolData = allSchools[schoolIndex];
-          const schoolName = parseSchoolNameFromCompleteName(schoolData[mcasDataConstants.SCHOOL_NAME]);
-          return (
-            <SchoolLabel
-              key={schoolName}
-              schoolName={schoolName}
-              schoolIndex={schoolIndex}
-              deleteSchool={deleteSchool}
-            />
-          )
-        })}
-      </div>
-      <div className='mcasChartWrapper'>
-        <VictoryChart
-          domainPadding={graphConstants.DOMAIN_PADDING}
-        >
-          <VictoryLabel
-            text={'MCAS 2017 Scores'}
-            textAnchor='middle'
-            x={250}
-            y={20}
+class UnwrappedMcasContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    }
+  }
+  componentDidMount() {
+    const myHeaders = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    const queryString = JSON.stringify({
+      query: `{
+        schools(subject: "MATH")
+          {
+            subject
+            schoolName
+            schoolCode
+          }
+      }`
+    });
+
+    const fetchAllSchoolsArray = () => {
+      return fetch('http://localhost:4000/graphql', {
+        method: 'POST',
+        headers: myHeaders,
+        body: queryString
+      })
+        .then((response) => {
+          response.json().then((data)=> {
+              this.mcasData = data.data.schools;
+              this.setState({ loading: false });
+          })
+        .catch(error => {
+          console.log('Request failed', error);
+        });
+      });
+    }
+
+    fetchAllSchoolsArray();
+
+  }
+  render() {
+    const { selectedSchoolIndexes, dropdownSchoolIndex, addSchoolClick, selectSchool, deleteSchool } = this.props;
+    const { loading } = this.state;
+
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+
+    const selectedSchoolName = parseSchoolNameFromCompleteName(this.mcasData[dropdownSchoolIndex].schoolName);
+    return (
+      <div>
+        <div className="schoolSelectWrapper">
+          <VirtualizedSelect
+            options={getSchoolNames(this.mcasData)}
+            optionHeight={50}
+            onChange={(selectValue) => {
+              if (selectValue) {
+                selectSchool(selectValue.index);
+              }
+            }}
+            value={selectedSchoolName}
           />
-          <VictoryGroup
-            offset={20}
-            padding={-50}
-            colorScale={"qualitative"}
-            categories={{ x: categories}}
+          <button onClick={ () => {
+            addSchoolClick(this.mcasData[dropdownSchoolIndex].schoolCode);
+          }}>Add School</button>
+        </div>
+        <div className='schoolLabelsWrapper'>
+          <h3>Selected Schools</h3>
+          { selectedSchoolIndexes.map((school, index) => {
+            const { schoolName, schoolCode } = school;
+            return (
+              <SchoolLabel
+                key={schoolName}
+                schoolName={parseSchoolNameFromCompleteName(schoolName)}
+                schoolCode={schoolCode}
+                deleteSchool={deleteSchool}
+              />
+            )
+          })}
+        </div>
+        <div className='mcasChartWrapper'>
+          <VictoryChart
+            domainPadding={graphConstants.DOMAIN_PADDING}
           >
-            {selectedSchoolIndexes.map((schoolIndex, index) => {
-              return (
-                <VictoryBar
-                  labels={(d) => `${d.y}%`}
-                  style={{
-                    data: {
-                      width: 18,
-                      padding: 5
-                    },
-                    labels: {
-                      fontSize: 10
-                    }
-                  }}
-                  data={formatDataForChart(allSchools[schoolIndex], index)}
-                />
-              )
-            })}
-          </VictoryGroup>
-        </VictoryChart>
+            <VictoryLabel
+              text={'MCAS 2017 Scores'}
+              textAnchor='middle'
+              x={250}
+              y={20}
+            />
+            <VictoryGroup
+              offset={20}
+              padding={-50}
+              colorScale={"qualitative"}
+              categories={{ x: categories}}
+            >
+              {selectedSchoolIndexes.map((school, index) => {
+                return (
+                  <VictoryBar
+                    key={`${school.name}-${school.schoolCode}`}
+                    labels={(d) => `${d.y}%`}
+                    style={{
+                      data: {
+                        width: 18,
+                        padding: 5
+                      },
+                      labels: {
+                        fontSize: 10
+                      }
+                    }}
+                    data={formatDataForChart(school, index)}
+                  />
+                )
+              })}
+            </VictoryGroup>
+          </VictoryChart>
+        </div>
       </div>
-    </div>
-  )
-};
+    )
+  }
+}
 
 const mapStateToProps = state => {
   const { selectedSchoolIndexes, dropdownSchoolIndex } = state;
   return {
-    allSchools: mcasData, // Hard coded for now, move to entity eventually
     selectedSchoolIndexes,
     dropdownSchoolIndex
   };
@@ -168,9 +215,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addSchoolClick: schoolData => {
-      console.log('in addSchoolClick');
-      dispatch(addSchoolAction(schoolData));
+    addSchoolClick: schoolCode => {
+      dispatch(addSchoolAction(schoolCode));
     },
     selectSchool: schoolIndex => {
       dispatch(selectSchoolAction(schoolIndex))
