@@ -1,8 +1,17 @@
+// @flow
 import React from 'react';
 import { VictoryChart, VictoryLabel, VictoryGroup, VictoryBar } from 'victory';
 import { graphColors } from './mcasConstants';
 
-const formatDataForChart = (school, index) => {
+import type { schoolMcasType } from './mcas.flow';
+
+type schoolDataForChart = {
+  x: 'Exceeding' | 'Meeting' | 'Partially Meeting' | 'Not Meeting',
+  y: number,
+  fill: string
+}
+
+const formatDataForChart = (school: schoolMcasType, index: number): Array<schoolDataForChart> => {
   return categories.map(category => {
     return {
       x: category,
@@ -22,18 +31,14 @@ const mapCategoriesToRawDataValue = {
 };
 
 export const graphConstants = {
-  DOMAIN_PADDING: 40,
-  TITLE_X: 225,
-  TITLE_Y: 20,
-  X_AXIS_LABEL_PADDING: 30,
-  Y_AXIS_LABEL_PADDING: 40,
-  Y_AXIS_TEXT: '% Students',
-  BAR_FILL: '#c43a31',
-  BAR_STROKE: 'black',
-  BAR_STROKE_WIDTH: 2
+  DOMAIN_PADDING: 40
 }
 
-const McasChart = ({ selectedSchools }) => {
+type Props = {
+  selectedSchools: Array<schoolMcasType>
+}
+
+const McasChart = ({ selectedSchools }: Props) => {
   return (
     <div className='mcasChartWrapper'>
       <VictoryChart
@@ -55,7 +60,7 @@ const McasChart = ({ selectedSchools }) => {
             selectedSchools.map((school, index) => {
               return (
                 <VictoryBar
-                  key={`${school.name}-${school.schoolCode}`}
+                  key={`${school.schoolName}-${school.schoolCode}`}
                   labels={(d) => `${d.y}%`}
                   style={{
                     data: {
