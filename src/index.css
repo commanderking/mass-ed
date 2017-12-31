@@ -12,14 +12,15 @@ body {
 }
 
 .schoolLabelsWrapper {
-  height: 650px;
   width: 400px;
   display: inline-block;
   vertical-align: top;
+  text-align: left;
 }
 
 .schoolLabelWrapper {
   position: relative;
+  padding: 5px;
 }
 
 .schoolSelectWrapper {
@@ -37,4 +38,12 @@ body {
 
 .closeGraphButton {
   display: inline-block;
+}
+
+.selectedSchoolsIcon {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
 }

@@ -105,6 +105,9 @@ class UnwrappedMcasContainer extends Component {
             addSchoolClick(this.mcasData[dropdownSchoolIndex].schoolCode);
           }}>Add School</button>
         </div>
+        <McasChart
+          selectedSchools={selectedSchools}
+        />
         <div className='schoolLabelsWrapper'>
           <h3>Selected Schools</h3>
           { selectedSchools.map((school, index) => {
@@ -112,6 +115,7 @@ class UnwrappedMcasContainer extends Component {
             return (
               <SchoolLabel
                 key={schoolName}
+                index={index}
                 schoolName={parseSchoolNameFromCompleteName(schoolName)}
                 schoolCode={schoolCode}
                 deleteSchool={deleteSchool}
@@ -119,9 +123,6 @@ class UnwrappedMcasContainer extends Component {
             )
           })}
         </div>
-        <McasChart
-          selectedSchools={selectedSchools}
-        />
       </div>
     )
   }

@@ -1,29 +1,16 @@
 import React from 'react';
 import { VictoryChart, VictoryLabel, VictoryGroup, VictoryBar } from 'victory';
+import { graphColors } from './mcasConstants';
 
 const formatDataForChart = (school, index) => {
   return categories.map(category => {
     return {
       x: category,
       y: school[mapCategoriesToRawDataValue[category]],
-      fill: colors[index]
+      fill: graphColors[index]
     }
   });
 }
-
-
-/**
-  * #aec6cf - pastel blue
-  * #b19cd9 - pastel purple
-  * #77dd77 - pastel green
-  * #ff6961 - pastel red
-  */
-const colors = [
-  "#aec6cf",
-  "#b19cd9",
-  "#77dd77",
-  "#ff6961"
-];
 
 const categories = ['Exceeding', 'Meeting', 'Partially Meeting', 'Not Meeting'];
 

@@ -1,8 +1,10 @@
 import React from 'react';
+import { graphColors } from '../mcasConstants';
 
-export const SchoolLabel = ({ schoolName, schoolCode, deleteSchool }) => {
+export const SchoolLabel = ({ schoolName, schoolCode, deleteSchool, index }) => {
   return (
-    <div className='schooLabelWrapper'>
+    <div className='schoolLabelWrapper'>
+      <div className='selectedSchoolsIcon' style={{ backgroundColor: graphColors[index] }}></div>
       <span>{schoolName}</span>
       <button
         className="closeGraphButton"
