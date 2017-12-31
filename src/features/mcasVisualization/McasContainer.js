@@ -12,7 +12,7 @@ import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 
-import type { schoolsMcasType, schoolMcasType } from './mcas.flow.js';
+import type { schoolsType, schoolType, schoolMcasType } from './mcas.flow.js';
 
 const parseSchoolNameFromCompleteName = (schoolName: string) : string => {
   const splitSchoolName = schoolName.split(' - ');
@@ -33,7 +33,7 @@ type SchoolNameForSelector = {
 
 type schoolNamesForSelector = Array<SchoolNameForSelector>;
 
-const getSchoolNamesForSelector = (allSchools: schoolsMcasType): schoolNamesForSelector => {
+const getSchoolNamesForSelector = (allSchools: schoolsType): schoolNamesForSelector => {
   const data = allSchools.map((school, index) => {
     const schoolName = parseSchoolNameFromCompleteName(school.schoolName);
     return {

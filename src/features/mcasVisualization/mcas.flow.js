@@ -1,8 +1,18 @@
 // @flow
-export type schoolMcasType = {
+export type schoolType = {
   subject: string,
   schoolName: string,
   schoolCode: number,
 }
 
-export type schoolsMcasType = Array<schoolMcasType>;
+export type schoolsType = Array<schoolType>;
+
+export type schoolMcasType = {
+  subject: 'ELA' | 'MATH',
+  schoolName: string,
+  schoolCode: number,
+  exceededPercent: number,
+  metPercent: number,
+  partiallyMetPercent: number,
+  notMetPercent: number
+}
