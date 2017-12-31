@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { VictoryChart, VictoryBar, VictoryLabel, VictoryGroup } from 'victory';
 import { addSchoolAction, selectSchoolAction, deleteSchoolAction } from './mcasActions';
 import { SchoolLabel } from './components/SchoolLabel';
 import VirtualizedSelect from 'react-virtualized-select';
