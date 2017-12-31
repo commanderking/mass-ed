@@ -6,45 +6,12 @@ import { VictoryChart, VictoryBar, VictoryLabel, VictoryGroup } from 'victory';
 import { addSchoolAction, selectSchoolAction, deleteSchoolAction } from './mcasActions';
 import { SchoolLabel } from './components/SchoolLabel';
 import VirtualizedSelect from 'react-virtualized-select';
+import { McasChart } from './McasChart';
 
 // This only needs to be done once; probably during bootstrapping process.
 import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
-
-const categories = ['Exceeding', 'Meeting', 'Partially Meeting', 'Not Meeting'];
-
-/**
-  * #aec6cf - pastel blue
-  * #b19cd9 - pastel purple
-  * #77dd77 - pastel green
-  * #ff6961 - pastel red
-  */
-const colors = [
-  "#aec6cf",
-  "#b19cd9",
-  "#77dd77",
-  "#ff6961"
-];
-
-export const graphConstants = {
-  DOMAIN_PADDING: 40,
-  TITLE_X: 225,
-  TITLE_Y: 20,
-  X_AXIS_LABEL_PADDING: 30,
-  Y_AXIS_LABEL_PADDING: 40,
-  Y_AXIS_TEXT: '% Students',
-  BAR_FILL: '#c43a31',
-  BAR_STROKE: 'black',
-  BAR_STROKE_WIDTH: 2
-}
-
-const mapCategoriesToRawDataValue = {
-  [categories[0]] : 'exceededPercent',
-  [categories[1]] : 'metPercent',
-  [categories[2]] : 'partiallyMetPercent',
-  [categories[3]] : 'notMetPercent'
-};
 
 const parseSchoolNameFromCompleteName = schoolName => {
   const splitSchoolName = schoolName.split(' - ');
@@ -54,16 +21,6 @@ const parseSchoolNameFromCompleteName = schoolName => {
     return splitSchoolName[1];
   }
   return schoolName;
-}
-
-const formatDataForChart = (school, index) => {
-  return categories.map(category => {
-    return {
-      x: category,
-      y: school[mapCategoriesToRawDataValue[category]],
-      fill: colors[index]
-    }
-  });
 }
 
 const getSchoolNames = (allSchools) => {
@@ -124,7 +81,7 @@ class UnwrappedMcasContainer extends Component {
 
   }
   render() {
-    const { selectedSchoolIndexes, dropdownSchoolIndex, addSchoolClick, selectSchool, deleteSchool } = this.props;
+    const { selectedSchools, dropdownSchoolIndex, addSchoolClick, selectSchool, deleteSchool } = this.props;
     const { loading } = this.state;
 
     if (loading) {
@@ -151,7 +108,7 @@ class UnwrappedMcasContainer extends Component {
         </div>
         <div className='schoolLabelsWrapper'>
           <h3>Selected Schools</h3>
-          { selectedSchoolIndexes.map((school, index) => {
+          { selectedSchools.map((school, index) => {
             const { schoolName, schoolCode } = school;
             return (
               <SchoolLabel
@@ -163,52 +120,18 @@ class UnwrappedMcasContainer extends Component {
             )
           })}
         </div>
-        <div className='mcasChartWrapper'>
-          <VictoryChart
-            domainPadding={graphConstants.DOMAIN_PADDING}
-          >
-            <VictoryLabel
-              text={'MCAS 2017 Scores'}
-              textAnchor='middle'
-              x={250}
-              y={20}
-            />
-            <VictoryGroup
-              offset={20}
-              padding={-50}
-              colorScale={"qualitative"}
-              categories={{ x: categories}}
-            >
-              {selectedSchoolIndexes.map((school, index) => {
-                return (
-                  <VictoryBar
-                    key={`${school.name}-${school.schoolCode}`}
-                    labels={(d) => `${d.y}%`}
-                    style={{
-                      data: {
-                        width: 18,
-                        padding: 5
-                      },
-                      labels: {
-                        fontSize: 10
-                      }
-                    }}
-                    data={formatDataForChart(school, index)}
-                  />
-                )
-              })}
-            </VictoryGroup>
-          </VictoryChart>
-        </div>
+        <McasChart
+          selectedSchools={selectedSchools}
+        />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { selectedSchoolIndexes, dropdownSchoolIndex } = state;
+  const { selectedSchools, dropdownSchoolIndex } = state;
   return {
-    selectedSchoolIndexes,
+    selectedSchools,
     dropdownSchoolIndex
   };
 }

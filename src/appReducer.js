@@ -1,7 +1,7 @@
 import { mcasActionTypes } from 'mcasVisualization/mcasActions';
 import { combineReducers } from 'redux';
 
-const selectedSchoolIndexes = (state = [], action) => {
+const selectedSchools = (state = [], action) => {
   switch (action.type) {
     case mcasActionTypes.ADD_SCHOOL_REQUESTED:
       return [
@@ -41,7 +41,7 @@ const dropdownSchoolIndex = (index = 0, action) => {
 }
 
 const mcasVisualizationData = combineReducers({
-  selectedSchoolIndexes,
+  selectedSchools,
   dropdownSchoolIndex
 })
 
