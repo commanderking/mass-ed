@@ -1,13 +1,8 @@
 /**
-  * #aec6cf - pastel blue
-  * #b19cd9 - pastel purple
-  * #77dd77 - pastel green
-  * #ff6961 - pastel red
-  */
+ * #aec6cf - pastel blue
+ * #b19cd9 - pastel purple
+ * #77dd77 - pastel green
+ * #ff6961 - pastel red
+ */
 
-export const graphColors = [
-  "#aec6cf",
-  "#b19cd9",
-  "#77dd77",
-  "#ff6961"
-];
+export const graphColors = ["#aec6cf", "#b19cd9", "#77dd77", "#ff6961"];
