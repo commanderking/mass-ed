@@ -5,16 +5,16 @@ import { connect } from "react-redux";
 import {
   addSchoolAction,
   selectSchoolAction,
-  deleteSchoolAction
+  deleteSchoolAction,
+  addAllSchoolsAction
 } from "./mcasActions";
 import { SchoolLabel } from "./components/SchoolLabel";
 import { McasChart } from "./McasChart";
 
 import "rc-select/assets/index.css";
+import Select, { Option } from "rc-select";
 
 import type { schoolMcasType } from "./mcas.flow.js";
-
-import Select, { Option } from "rc-select";
 
 const parseSchoolNameFromCompleteName = (schoolName: string): string => {
   const splitSchoolName = schoolName.split(" - ");
@@ -44,48 +44,15 @@ class UnwrappedMcasContainer extends Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true
+      loading: false
     };
   }
   componentDidMount() {
-    const myHeaders = new Headers({
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    });
-
-    const queryString = JSON.stringify({
-      query: `{
-        schools(subject: "MATH")
-          {
-            subject
-            schoolName
-            schoolCode
-          }
-      }`
-    });
-
-    const fetchAllSchoolsArray = () => {
-      return fetch("http://localhost:4000/graphql", {
-        method: "POST",
-        headers: myHeaders,
-        body: queryString
-      }).then(response => {
-        response
-          .json()
-          .then(data => {
-            this.mcasData = data.data.schools;
-            this.setState({ loading: false });
-          })
-          .catch(error => {
-            console.log("Request failed", error);
-          });
-      });
-    };
-
-    fetchAllSchoolsArray();
+    this.props.addAllSchools();
   }
   render() {
     const {
+      allSchools,
       selectedSchools,
       dropdownSchoolIndex,
       addSchoolClick,
@@ -98,10 +65,6 @@ class UnwrappedMcasContainer extends Component<Props, State> {
       return <div>Loading...</div>;
     }
 
-    console.log(dropdownSchoolIndex);
-    const selectedSchoolName = parseSchoolNameFromCompleteName(
-      this.mcasData[dropdownSchoolIndex].schoolName
-    );
     return (
       <div>
         <div className="schoolSelectWrapper">
@@ -109,9 +72,8 @@ class UnwrappedMcasContainer extends Component<Props, State> {
             <Select
               style={{ width: 500 }}
               onSelect={(selectValue, option) => {
-                console.log("selectValue", selectValue);
-                console.log("props", option.props);
                 if (selectValue) {
+                  console.log("selectValue", option.props.index);
                   selectSchool(option.props.index);
                 }
               }}
@@ -123,7 +85,7 @@ class UnwrappedMcasContainer extends Component<Props, State> {
               combobox
               backfill
             >
-              {this.mcasData.map((school, index) => {
+              {allSchools.map((school, index) => {
                 const schoolName = parseSchoolNameFromCompleteName(
                   school.schoolName
                 );
@@ -141,7 +103,9 @@ class UnwrappedMcasContainer extends Component<Props, State> {
           </div>
           <button
             onClick={() => {
-              addSchoolClick(this.mcasData[dropdownSchoolIndex].schoolCode);
+              if (dropdownSchoolIndex) {
+                addSchoolClick(allSchools[dropdownSchoolIndex].schoolCode);
+              }
             }}
           >
             Add School
@@ -169,8 +133,9 @@ class UnwrappedMcasContainer extends Component<Props, State> {
 }
 
 const mapStateToProps = state => {
-  const { selectedSchools, dropdownSchoolIndex } = state;
+  const { allSchools, selectedSchools, dropdownSchoolIndex } = state;
   return {
+    allSchools,
     selectedSchools,
     dropdownSchoolIndex
   };
@@ -178,6 +143,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    addAllSchools: () => {
+      dispatch(addAllSchoolsAction());
+    },
     addSchoolClick: schoolCode => {
       dispatch(addSchoolAction(schoolCode));
     },

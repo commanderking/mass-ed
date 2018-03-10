@@ -3,8 +3,18 @@ export const mcasActionTypes = {
   ADD_SCHOOL_SUCCEEDED: "ADD_SCHOOL_SUCCEEDED",
   ADD_SCHOOL_FAILED: "ADD_SCHOOL_FAILED",
   ADD_SCHOOL: "ADD_SCHOOL",
+  LOAD_ALL_SCHOOLS_REQUESTED: "LOAD_ALL_SCHOOLS_REQUESTED",
+  LOAD_ALL_SCHOOLS_SUCCEEDED: "LOAD_ALL_SCHOOLS_SUCCEEDED",
+  LOAD_ALL_SCHOOLS_FAILED: "LOAD_ALL_SCHOOLS_FAILED",
   SELECT_SCHOOL: "SELECT_SCHOOL",
   DELETE_SCHOOL: "DELETE_SCHOOL"
+};
+
+export const addAllSchoolsAction = allSchools => {
+  return {
+    type: mcasActionTypes.LOAD_ALL_SCHOOLS_REQUESTED,
+    payload: allSchools
+  };
 };
 
 export const addSchoolAction = schoolCode => {

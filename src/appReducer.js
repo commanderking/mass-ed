@@ -1,6 +1,19 @@
 import { mcasActionTypes } from "mcasVisualization/mcasActions";
 import { combineReducers } from "redux";
 
+const allSchools = (state = [], action) => {
+  switch (action.type) {
+    case mcasActionTypes.LOAD_ALL_SCHOOLS_REQUESTED:
+      return [...state];
+    case mcasActionTypes.LOAD_ALL_SCHOOLS_SUCCEEDED:
+      return [...state, ...action.payload.allSchoolData.data.schools];
+    case mcasActionTypes.LOAD_ALL_SCHOOLS_FAILED:
+      return [...state];
+    default:
+      return state;
+  }
+};
+
 const selectedSchools = (state = [], action) => {
   switch (action.type) {
     case mcasActionTypes.ADD_SCHOOL_REQUESTED:
@@ -12,8 +25,6 @@ const selectedSchools = (state = [], action) => {
     case mcasActionTypes.ADD_SCHOOL:
       return [...state, action.schoolIndex];
     case mcasActionTypes.DELETE_SCHOOL:
-      console.log("action", action);
-      console.log("state", state);
       const newState = state.filter(school => {
         return school.schoolCode !== action.payload.schoolCode;
       });
@@ -23,7 +34,7 @@ const selectedSchools = (state = [], action) => {
   }
 };
 
-const dropdownSchoolIndex = (index = 0, action) => {
+const dropdownSchoolIndex = (index = null, action) => {
   switch (action.type) {
     case mcasActionTypes.SELECT_SCHOOL:
       return action.schoolIndex;
@@ -33,6 +44,7 @@ const dropdownSchoolIndex = (index = 0, action) => {
 };
 
 const mcasVisualizationData = combineReducers({
+  allSchools,
   selectedSchools,
   dropdownSchoolIndex
 });
