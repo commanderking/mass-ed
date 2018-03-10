@@ -21,7 +21,7 @@ export const selectSchoolAction = schoolIndex => {
   };
 };
 
-export const deleteSchoolAction = schoolIndex => ({
+export const deleteSchoolAction = schoolCode => ({
   type: mcasActionTypes.DELETE_SCHOOL,
-  schoolIndex
+  payload: { schoolCode }
 });

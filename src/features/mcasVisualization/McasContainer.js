@@ -8,15 +8,13 @@ import {
   deleteSchoolAction
 } from "./mcasActions";
 import { SchoolLabel } from "./components/SchoolLabel";
-import VirtualizedSelect from "react-virtualized-select";
 import { McasChart } from "./McasChart";
 
-// This only needs to be done once; probably during bootstrapping process.
-import "react-select/dist/react-select.css";
-import "react-virtualized/styles.css";
-import "react-virtualized-select/styles.css";
+import "rc-select/assets/index.css";
 
-import type { schoolsType, schoolType, schoolMcasType } from "./mcas.flow.js";
+import type { schoolMcasType } from "./mcas.flow.js";
+
+import Select, { Option } from "rc-select";
 
 const parseSchoolNameFromCompleteName = (schoolName: string): string => {
   const splitSchoolName = schoolName.split(" - ");
@@ -26,30 +24,6 @@ const parseSchoolNameFromCompleteName = (schoolName: string): string => {
     return splitSchoolName[1];
   }
   return schoolName;
-};
-
-type SchoolNameForSelector = {
-  value: string,
-  label: string,
-  index: number,
-  schoolCode: number
-};
-
-type schoolNamesForSelector = Array<SchoolNameForSelector>;
-
-const getSchoolNamesForSelector = (
-  allSchools: schoolsType
-): schoolNamesForSelector => {
-  const data = allSchools.map((school, index) => {
-    const schoolName = parseSchoolNameFromCompleteName(school.schoolName);
-    return {
-      value: schoolName,
-      label: schoolName,
-      index: index,
-      schoolCode: school.schoolCode
-    };
-  });
-  return data;
 };
 
 type Props = {
@@ -124,22 +98,47 @@ class UnwrappedMcasContainer extends Component<Props, State> {
       return <div>Loading...</div>;
     }
 
+    console.log(dropdownSchoolIndex);
     const selectedSchoolName = parseSchoolNameFromCompleteName(
       this.mcasData[dropdownSchoolIndex].schoolName
     );
     return (
       <div>
         <div className="schoolSelectWrapper">
-          <VirtualizedSelect
-            options={getSchoolNamesForSelector(this.mcasData)}
-            optionHeight={50}
-            onChange={selectValue => {
-              if (selectValue) {
-                selectSchool(selectValue.index);
-              }
-            }}
-            value={selectedSchoolName}
-          />
+          <div style={{ width: 300 }}>
+            <Select
+              style={{ width: 500 }}
+              onSelect={(selectValue, option) => {
+                console.log("selectValue", selectValue);
+                console.log("props", option.props);
+                if (selectValue) {
+                  selectSchool(option.props.index);
+                }
+              }}
+              dropdownStyle={{
+                height: "300px",
+                overflow: "scroll"
+              }}
+              allowClear
+              combobox
+              backfill
+            >
+              {this.mcasData.map((school, index) => {
+                const schoolName = parseSchoolNameFromCompleteName(
+                  school.schoolName
+                );
+                return (
+                  <Option
+                    key={index.toString()}
+                    value={schoolName}
+                    index={index}
+                  >
+                    {schoolName}
+                  </Option>
+                );
+              })}
+            </Select>
+          </div>
           <button
             onClick={() => {
               addSchoolClick(this.mcasData[dropdownSchoolIndex].schoolCode);

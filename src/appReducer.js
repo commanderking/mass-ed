@@ -12,8 +12,10 @@ const selectedSchools = (state = [], action) => {
     case mcasActionTypes.ADD_SCHOOL:
       return [...state, action.schoolIndex];
     case mcasActionTypes.DELETE_SCHOOL:
-      const newState = state.filter(schoolIndex => {
-        return schoolIndex !== action.schoolIndex;
+      console.log("action", action);
+      console.log("state", state);
+      const newState = state.filter(school => {
+        return school.schoolCode !== action.payload.schoolCode;
       });
       return newState;
     default:
