@@ -8,23 +8,11 @@ import {
   deleteSchoolAction,
   addAllSchoolsAction
 } from "./mcasActions";
-import { SchoolLabel } from "./components/SchoolLabel";
-import { McasChart } from "./McasChart";
-
-import "rc-select/assets/index.css";
-import Select, { Option } from "rc-select";
-
+import { McasChart } from "./components/McasChart";
+import { SchoolSelect } from "./components/SchoolSelect";
+import { AddSchoolButton } from "./components/AddSchoolButton";
+import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
 import type { schoolMcasType } from "./mcas.flow.js";
-
-const parseSchoolNameFromCompleteName = (schoolName: string): string => {
-  const splitSchoolName = schoolName.split(" - ");
-  const districtNameWords = splitSchoolName[0].split(" ");
-  const schoolNameWords = splitSchoolName[1].split(" ");
-  if (districtNameWords[0] === schoolNameWords[0]) {
-    return splitSchoolName[1];
-  }
-  return schoolName;
-};
 
 type Props = {
   selectedSchools: Array<schoolMcasType>,
@@ -68,65 +56,20 @@ class UnwrappedMcasContainer extends Component<Props, State> {
     return (
       <div>
         <div className="schoolSelectWrapper">
-          <div style={{ width: 300 }}>
-            <Select
-              style={{ width: 500 }}
-              onSelect={(selectValue, option) => {
-                if (selectValue) {
-                  console.log("selectValue", option.props.index);
-                  selectSchool(option.props.index);
-                }
-              }}
-              dropdownStyle={{
-                height: "300px",
-                overflow: "scroll"
-              }}
-              allowClear
-              combobox
-              backfill
-            >
-              {allSchools.map((school, index) => {
-                const schoolName = parseSchoolNameFromCompleteName(
-                  school.schoolName
-                );
-                return (
-                  <Option
-                    key={index.toString()}
-                    value={schoolName}
-                    index={index}
-                  >
-                    {schoolName}
-                  </Option>
-                );
-              })}
-            </Select>
-          </div>
-          <button
+          <SchoolSelect selectSchool={selectSchool} allSchools={allSchools} />
+          <AddSchoolButton
             onClick={() => {
-              if (dropdownSchoolIndex) {
+              if (dropdownSchoolIndex || dropdownSchoolIndex === 0) {
                 addSchoolClick(allSchools[dropdownSchoolIndex].schoolCode);
               }
             }}
-          >
-            Add School
-          </button>
+          />
         </div>
         <McasChart selectedSchools={selectedSchools} />
-        <div className="schoolLabelsWrapper">
-          <h3>Selected Schools</h3>
-          {selectedSchools.map((school, index) => {
-            const { schoolName, schoolCode } = school;
-            return (
-              <SchoolLabel
-                key={schoolName}
-                index={index}
-                schoolName={parseSchoolNameFromCompleteName(schoolName)}
-                schoolCode={schoolCode}
-                deleteSchool={deleteSchool}
-              />
-            );
-          })}
-        </div>
+        <SelectedSchoolsComponent
+          selectedSchools={selectedSchools}
+          deleteSchool={deleteSchool}
+        />
       </div>
     );
   }
@@ -162,4 +105,4 @@ const McasContainer = connect(mapStateToProps, mapDispatchToProps)(
   UnwrappedMcasContainer
 );
 
-export { McasContainer };
+export { McasContainer, UnwrappedMcasContainer };

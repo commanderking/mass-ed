@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import { VictoryChart, VictoryLabel, VictoryGroup, VictoryBar } from "victory";
-import { graphColors } from "./mcasConstants";
+import { graphColors } from "../mcasConstants";
 
 import type { schoolMcasType } from "./mcas.flow";
 
