@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`School Label renders correct structure 1`] = `
+<div
+  className="schoolLabelWrapper"
+>
+  <div
+    className="selectedSchoolsIcon"
+    style={
+      Object {
+        "backgroundColor": "#b19cd9",
+      }
+    }
+  />
+  <span>
+    mock-school-name
+  </span>
+  <button
+    className="closeGraphButton"
+    onClick={[Function]}
+  >
+    X
+  </button>
+</div>
+`;
