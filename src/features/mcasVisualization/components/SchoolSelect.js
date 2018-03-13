@@ -10,7 +10,6 @@ const SchoolSelect = ({ selectSchool, allSchools }) => {
         style={{ width: 500 }}
         onSelect={(selectValue, option) => {
           if (selectValue) {
-            console.log("selectValue", option.props.index);
             selectSchool(option.props.index);
           }
         }}

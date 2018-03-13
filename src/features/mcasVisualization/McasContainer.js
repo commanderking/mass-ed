@@ -55,11 +55,13 @@ class UnwrappedMcasContainer extends Component<Props, State> {
       return <div>Loading...</div>;
     }
 
+    const hasReachedMaxSchools = selectedSchools.length >= 4;
     return (
       <div>
         <div className="schoolSelectWrapper">
           <SchoolSelect selectSchool={selectSchool} allSchools={allSchools} />
           <AddSchoolButton
+            disabled={hasReachedMaxSchools}
             onClick={() => {
               if (dropdownSchoolIndex || dropdownSchoolIndex === 0) {
                 addSchoolClick(allSchools[dropdownSchoolIndex].schoolCode);

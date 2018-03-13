@@ -9,5 +9,15 @@ export const allSchoolsMockData = [
     subject: "ELA",
     schoolName: "Abington - Abington Middle School",
     schoolCode: 10405
+  },
+  {
+    subject: "ELA",
+    schoolName: "Newton Middle",
+    schoolCode: 1242
+  },
+  {
+    subject: "ELA",
+    schoolName: "Arlington Middle",
+    schoolCode: 1242
   }
 ];
