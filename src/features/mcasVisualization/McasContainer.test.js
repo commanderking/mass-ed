@@ -46,4 +46,11 @@ describe("McasContainer", () => {
     const buttonWrapper = wrapper.find(AddSchoolButton);
     expect(buttonWrapper.props()).toHaveProperty("disabled", true);
   });
+
+  it("disables add school button when four schools are set", () => {
+    mockProps.selectedSchools = allSchoolsMockData;
+    const wrapper = shallow(<UnwrappedMcasContainer {...mockProps} />);
+    const schoolSelectWrapper = wrapper.find(SchoolSelect);
+    expect(schoolSelectWrapper.props()).toHaveProperty("disabled", true);
+  });
 });

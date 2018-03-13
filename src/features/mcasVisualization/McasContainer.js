@@ -59,7 +59,11 @@ class UnwrappedMcasContainer extends Component<Props, State> {
     return (
       <div>
         <div className="schoolSelectWrapper">
-          <SchoolSelect selectSchool={selectSchool} allSchools={allSchools} />
+          <SchoolSelect
+            selectSchool={selectSchool}
+            allSchools={allSchools}
+            disabled={hasReachedMaxSchools}
+          />
           <AddSchoolButton
             disabled={hasReachedMaxSchools}
             onClick={() => {
