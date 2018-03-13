@@ -3,7 +3,7 @@ import React from "react";
 import { VictoryChart, VictoryLabel, VictoryGroup, VictoryBar } from "victory";
 import { graphColors } from "../mcasConstants";
 
-import type { schoolMcasType } from "./mcas.flow";
+import type { SchoolMcasType } from "../mcas.flow";
 
 type schoolDataForChart = {
   x: "Exceeding" | "Meeting" | "Partially Meeting" | "Not Meeting",
@@ -12,7 +12,7 @@ type schoolDataForChart = {
 };
 
 const formatDataForChart = (
-  school: schoolMcasType,
+  school: SchoolMcasType,
   index: number
 ): Array<schoolDataForChart> => {
   return categories.map(category => {
@@ -38,7 +38,7 @@ export const graphConstants = {
 };
 
 type Props = {
-  selectedSchools: Array<schoolMcasType>
+  selectedSchools: Array<SchoolMcasType>
 };
 
 const McasChart = ({ selectedSchools }: Props) => {

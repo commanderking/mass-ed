@@ -12,15 +12,17 @@ import { McasChart } from "./components/McasChart";
 import { SchoolSelect } from "./components/SchoolSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
-import type { schoolMcasType } from "./mcas.flow.js";
+import type { SchoolMcasType, SchoolCodeType } from "./mcas.flow.js";
 
 type Props = {
-  selectedSchools: Array<schoolMcasType>,
+  selectedSchools: Array<SchoolMcasType>,
   dropdownSchoolIndex: number,
   // TODO: Need to figure out how to handle functions
-  addSchoolClick: any,
-  selectSchool: any,
-  deleteSchool: any
+  allSchools: Array<SchoolMcasType>,
+  addAllSchools: () => void,
+  addSchoolClick: SchoolCodeType => void,
+  selectSchool: SchoolCodeType => void,
+  deleteSchool: SchoolCodeType => void
 };
 
 type State = {
@@ -29,7 +31,7 @@ type State = {
 
 class UnwrappedMcasContainer extends Component<Props, State> {
   mcasData: Array<*>;
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       loading: false

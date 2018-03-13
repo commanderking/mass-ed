@@ -7,10 +7,12 @@ export type schoolType = {
 
 export type schoolsType = Array<schoolType>;
 
-export type schoolMcasType = {
+export type SchoolCodeType = number;
+
+export type SchoolMcasType = {
   subject: "ELA" | "MATH",
   schoolName: string,
-  schoolCode: number,
+  schoolCode: SchoolCodeType,
   exceededPercent: number,
   metPercent: number,
   partiallyMetPercent: number,
