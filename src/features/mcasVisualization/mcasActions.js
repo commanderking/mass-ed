@@ -6,6 +6,7 @@ export const mcasActionTypes = {
   LOAD_ALL_SCHOOLS_REQUESTED: "LOAD_ALL_SCHOOLS_REQUESTED",
   LOAD_ALL_SCHOOLS_SUCCEEDED: "LOAD_ALL_SCHOOLS_SUCCEEDED",
   LOAD_ALL_SCHOOLS_FAILED: "LOAD_ALL_SCHOOLS_FAILED",
+  SET_SUBJECT: "SET_SUBJECT",
   SELECT_SCHOOL: "SELECT_SCHOOL",
   DELETE_SCHOOL: "DELETE_SCHOOL"
 };
@@ -21,6 +22,13 @@ export const addSchoolAction = schoolCode => {
   return {
     type: mcasActionTypes.ADD_SCHOOL_REQUESTED,
     payload: { schoolCode }
+  };
+};
+
+export const setSubjectAction = subject => {
+  return {
+    type: mcasActionTypes.SET_SUBJECT,
+    payload: { subject }
   };
 };
 

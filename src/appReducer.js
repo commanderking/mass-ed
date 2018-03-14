@@ -14,6 +14,15 @@ const allSchools = (state = [], action) => {
   }
 };
 
+const selectedSubject = (state = null, action) => {
+  switch (action.type) {
+    case mcasActionTypes.SET_SUBJECT:
+      return action.payload.subject;
+    default:
+      return state;
+  }
+};
+
 const selectedSchools = (state = [], action) => {
   switch (action.type) {
     case mcasActionTypes.ADD_SCHOOL_REQUESTED:
@@ -45,6 +54,7 @@ const dropdownSchoolIndex = (index = null, action) => {
 
 const mcasVisualizationData = combineReducers({
   allSchools,
+  selectedSubject,
   selectedSchools,
   dropdownSchoolIndex
 });

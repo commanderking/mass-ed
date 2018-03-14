@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
+
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";

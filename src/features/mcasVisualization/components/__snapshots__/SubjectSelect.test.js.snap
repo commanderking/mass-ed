@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubjectSelect renders correct structure 1`] = `
+<ButtonGroup
+  role="group"
+  tag="div"
+>
+  <Button
+    color="secondary"
+    key="subjectSelect-ela-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "backgroundColor": "red",
+      }
+    }
+    tag="button"
+  >
+    ela
+  </Button>
+  <Button
+    color="secondary"
+    key="subjectSelect-math-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "backgroundColor": "green",
+      }
+    }
+    tag="button"
+  >
+    math
+  </Button>
+</ButtonGroup>
+`;

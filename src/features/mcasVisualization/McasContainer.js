@@ -6,10 +6,12 @@ import {
   addSchoolAction,
   selectSchoolAction,
   deleteSchoolAction,
-  addAllSchoolsAction
+  addAllSchoolsAction,
+  setSubjectAction
 } from "./mcasActions";
 import { McasChart } from "./components/McasChart";
 import { SchoolSelect } from "./components/SchoolSelect";
+import { SubjectSelect } from "./components/SubjectSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
 import type { SchoolMcasType, SchoolCodeType } from "./mcas.flow.js";
@@ -46,6 +48,8 @@ class UnwrappedMcasContainer extends Component<Props, State> {
       selectedSchools,
       dropdownSchoolIndex,
       addSchoolClick,
+      setSubject,
+      selectedSubject,
       selectSchool,
       deleteSchool
     } = this.props;
@@ -59,6 +63,10 @@ class UnwrappedMcasContainer extends Component<Props, State> {
     return (
       <div>
         <div className="schoolSelectWrapper">
+          <SubjectSelect
+            setSubject={setSubject}
+            selectedSubject={selectedSubject}
+          />
           <SchoolSelect
             selectSchool={selectSchool}
             allSchools={allSchools}
@@ -84,11 +92,17 @@ class UnwrappedMcasContainer extends Component<Props, State> {
 }
 
 const mapStateToProps = state => {
-  const { allSchools, selectedSchools, dropdownSchoolIndex } = state;
+  const {
+    allSchools,
+    selectedSchools,
+    dropdownSchoolIndex,
+    selectedSubject
+  } = state;
   return {
     allSchools,
     selectedSchools,
-    dropdownSchoolIndex
+    dropdownSchoolIndex,
+    selectedSubject
   };
 };
 
@@ -105,6 +119,10 @@ const mapDispatchToProps = dispatch => {
     },
     deleteSchool: schoolIndex => {
       dispatch(deleteSchoolAction(schoolIndex));
+    },
+    setSubject: subject => {
+      console.log("subject", subject);
+      dispatch(setSubjectAction(subject));
     }
   };
 };

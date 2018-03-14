@@ -3,6 +3,7 @@ import { allSchoolsMockData } from "./TestData";
 import { UnwrappedMcasContainer } from "./McasContainer";
 import { shallow } from "enzyme";
 import { McasChart } from "./components/McasChart";
+import { SubjectSelect } from "./components/SubjectSelect";
 import { SchoolSelect } from "./components/SchoolSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
@@ -27,6 +28,7 @@ describe("McasContainer", () => {
     expect(wrapper.find(SchoolSelect)).toHaveLength(1);
     expect(wrapper.find(McasChart)).toHaveLength(1);
     expect(wrapper.find(SelectedSchoolsComponent)).toHaveLength(1);
+    expect(wrapper.find(SubjectSelect)).toHaveLength(1);
   });
 
   it("clicking add school button fires correct action", () => {
