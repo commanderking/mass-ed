@@ -1,6 +1,11 @@
-import { mcas } from "./features/mcasVisualization/mcasReducer";
+import {
+  mcas,
+  mcasReducerPath
+} from "./features/mcasVisualization/mcasReducer";
 import { combineReducers } from "redux";
 
-const mcasVisualizationData = mcas;
+const mcasVisualizationData = combineReducers({
+  [mcasReducerPath]: mcas
+});
 
 export { mcasVisualizationData };

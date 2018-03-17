@@ -24,7 +24,7 @@ const createQueryStringWithSchoolCode = schoolCode => {
 
 const allSchoolsQueryString = JSON.stringify({
   query: `{
-  schools(subject: "ELA") {
+  allSchools {
     subject
     schoolName
     schoolCode
@@ -53,6 +53,6 @@ export const fetchAllSchools = () => {
   })
     .then(response => response.json())
     .catch(error => {
-      console.log("Request for all schools failed", error);
+      console.log("Request fetchAllSchools failed", error);
     });
 };

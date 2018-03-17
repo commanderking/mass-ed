@@ -21,10 +21,10 @@ function* fetchSchoolMcasData(action) {
 
 function* fetchAllSchoolData(action) {
   try {
-    const allSchoolData = yield call(fetchAllSchools);
+    const allSchoolsData = yield call(fetchAllSchools);
     yield put({
       type: LOAD_ALL_SCHOOLS_SUCCEEDED,
-      payload: { allSchoolData }
+      payload: { allSchoolData: allSchoolsData.data.allSchools }
     });
   } catch (e) {
     yield put({

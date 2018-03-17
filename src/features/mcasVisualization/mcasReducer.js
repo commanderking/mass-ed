@@ -1,5 +1,4 @@
 import { mcasActionTypes } from "./mcasActions";
-import { createSelector } from "reselect";
 
 const initialState = {
   allSchools: [],
@@ -8,10 +7,14 @@ const initialState = {
   dropdownSchoolIndex: null
 };
 
-export const selectAllSchools = state => state.allSchools;
-export const selectSelectedSubject = state => state.selectedSubject;
-export const selectSelectedSchools = state => state.selectedSchools;
-export const selectDropdownSchoolIndex = state => state.dropdownSchoolIndex;
+export const mcasReducerPath = "mcas";
+
+export const selectAllSchools = state => state.mcas.allSchools;
+export const selectSelectedSubject = state =>
+  state.mcas.selectedSubject || "ela";
+export const selectSelectedSchools = state => state.mcas.selectedSchools;
+export const selectDropdownSchoolIndex = state =>
+  state.mcas.dropdownSchoolIndex;
 
 const mcas = (state = initialState, action) => {
   switch (action.type) {
@@ -20,7 +23,7 @@ const mcas = (state = initialState, action) => {
     case mcasActionTypes.LOAD_ALL_SCHOOLS_SUCCEEDED:
       return {
         ...state,
-        allSchools: action.payload.allSchoolData.data.schools
+        allSchools: action.payload.allSchoolData
       };
     case mcasActionTypes.LOAD_ALL_SCHOOLS_FAILED:
       return state;
@@ -33,12 +36,8 @@ const mcas = (state = initialState, action) => {
 
     // Add School
     case mcasActionTypes.ADD_SCHOOL_REQUESTED:
-      console.log("requested");
       return state;
     case mcasActionTypes.ADD_SCHOOL_SUCCEEDED:
-      console.log("succeeded");
-      console.log(action);
-      console.log(state);
       return {
         ...state,
         selectedSchools: [...state.selectedSchools, action.payload.schoolData]
@@ -51,8 +50,6 @@ const mcas = (state = initialState, action) => {
       const newSelectedSchools = state.selectedSchools.filter(school => {
         return school.schoolCode !== action.payload.schoolCode;
       });
-      console.log("newSelectedSchools", newSelectedSchools);
-      console.log(action);
       return {
         ...state,
         selectedSchools: newSelectedSchools

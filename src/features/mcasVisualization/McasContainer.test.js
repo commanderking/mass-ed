@@ -13,7 +13,7 @@ let mockProps;
 describe("McasContainer", () => {
   beforeEach(() => {
     mockProps = {
-      allSchools: allSchoolsMockData,
+      allSchoolsBySubject: allSchoolsMockData,
       addAllSchools: jest.fn(),
       selectedSchools: [],
       dropdownSchoolIndex: 0,
@@ -38,7 +38,7 @@ describe("McasContainer", () => {
     buttonWrapper.simulate("click");
     expect(mockProps.addSchoolClick).toHaveBeenCalledTimes(1);
     expect(mockProps.addSchoolClick).toHaveBeenCalledWith(
-      mockProps.allSchools[0].schoolCode
+      mockProps.allSchoolsBySubject[0].schoolCode
     );
   });
 

@@ -14,10 +14,10 @@ import { SchoolSelect } from "./components/SchoolSelect";
 import { SubjectSelect } from "./components/SubjectSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
+import { selectAllSchoolsBySubject } from "./mcasSelector";
 import type { SchoolMcasType, SchoolCodeType } from "./mcas.flow.js";
 
 import {
-  selectAllSchools,
   selectSelectedSubject,
   selectSelectedSchools,
   selectDropdownSchoolIndex
@@ -51,7 +51,7 @@ class UnwrappedMcasContainer extends Component<Props, State> {
   }
   render() {
     const {
-      allSchools,
+      allSchoolsBySubject,
       selectedSchools,
       dropdownSchoolIndex,
       addSchoolClick,
@@ -76,14 +76,16 @@ class UnwrappedMcasContainer extends Component<Props, State> {
           />
           <SchoolSelect
             selectSchool={selectSchool}
-            allSchools={allSchools}
+            allSchools={allSchoolsBySubject}
             disabled={hasReachedMaxSchools}
           />
           <AddSchoolButton
             disabled={hasReachedMaxSchools}
             onClick={() => {
               if (dropdownSchoolIndex || dropdownSchoolIndex === 0) {
-                addSchoolClick(allSchools[dropdownSchoolIndex].schoolCode);
+                addSchoolClick(
+                  allSchoolsBySubject[dropdownSchoolIndex].schoolCode
+                );
               }
             }}
           />
@@ -99,22 +101,8 @@ class UnwrappedMcasContainer extends Component<Props, State> {
 }
 
 const mapStateToProps = state => {
-  /*
-  const {
-    allSchools,
-    selectedSchools,
-    dropdownSchoolIndex,
-    selectedSubject
-  } = state;
   return {
-    allSchools,
-    selectedSchools,
-    dropdownSchoolIndex,
-    selectedSubject
-  };
-  */
-  return {
-    allSchools: selectAllSchools(state),
+    allSchoolsBySubject: selectAllSchoolsBySubject(state),
     selectedSchools: selectSelectedSchools(state),
     dropdownSchoolIndex: selectDropdownSchoolIndex(state),
     selectedSubject: selectSelectedSubject(state)
