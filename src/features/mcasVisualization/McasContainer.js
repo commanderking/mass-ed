@@ -66,6 +66,7 @@ class UnwrappedMcasContainer extends Component<Props, State> {
     }
 
     const hasReachedMaxSchools = selectedSchools.length >= 4;
+    const hasSelectedSchool = selectedSchools.length > 0;
     return (
       <div>
         <div className="schoolSelectWrapper">
@@ -85,15 +86,22 @@ class UnwrappedMcasContainer extends Component<Props, State> {
             }}
           />
         </div>
-        <McasChart
-          selectedSchools={selectedSchools}
-          setSubject={setSubject}
-          selectedSubject={selectedSubject}
-        />
-        <SelectedSchoolsComponent
-          selectedSchools={selectedSchools}
-          deleteSchool={deleteSchool}
-        />
+
+        {hasSelectedSchool ? (
+          <div>
+            <McasChart
+              selectedSchools={selectedSchools}
+              setSubject={setSubject}
+              selectedSubject={selectedSubject}
+            />
+            <SelectedSchoolsComponent
+              selectedSchools={selectedSchools}
+              deleteSchool={deleteSchool}
+            />
+          </div>
+        ) : (
+          <div>Awaiting School Selection... </div>
+        )}
       </div>
     );
   }

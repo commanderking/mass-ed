@@ -18,21 +18,23 @@ export const SchoolLabel = ({
 }: Props) => {
   return (
     <div className="schoolLabelWrapper">
-      <div
-        className="selectedSchoolsIcon"
-        style={{ backgroundColor: graphColors[index] }}
-      />
-      <span>{schoolName}</span>
-      <Button
-        className="closeGraphButton"
-        onClick={() => {
-          deleteSchool(schoolCode);
-        }}
-        color="danger"
-        size="sm"
-      >
-        X
-      </Button>
+      <div>
+        <Button
+          className="closeGraphButton"
+          onClick={() => {
+            deleteSchool(schoolCode);
+          }}
+          color="danger"
+          size="sm"
+        >
+          X
+        </Button>
+        <div
+          className="selectedSchoolsIcon"
+          style={{ backgroundColor: graphColors[index] }}
+        />
+        <span>{schoolName}</span>
+      </div>
     </div>
   );
 };

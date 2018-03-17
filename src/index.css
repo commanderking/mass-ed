@@ -11,8 +11,12 @@ body {
   width: 600px;
 }
 
+.mcasChartWrapper h3 {
+  text-align: center;
+}
+
 .schoolLabelsWrapper {
-  width: 400px;
+  max-width: 400px;
   display: inline-block;
   vertical-align: top;
   text-align: left;
@@ -28,16 +32,8 @@ body {
   margin: auto;
 }
 
-.chartWrapper {
-  width: 450px;
-  height: 300px;
-  margin: 25px 0px;
-  display: inline-block;
-  position: relative;
-}
-
 .closeGraphButton {
-  display: inline-block;
+  margin-right: 10px;
 }
 
 .selectedSchoolsIcon {
