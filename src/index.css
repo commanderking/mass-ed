@@ -47,3 +47,7 @@ body {
   vertical-align: middle;
   margin-right: 5px;
 }
+
+.subjectSelect {
+  z-index: 1;
+}

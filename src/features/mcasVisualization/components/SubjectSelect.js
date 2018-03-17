@@ -28,7 +28,9 @@ const renderSubjectButtons = (setSubject, selectedSubject) =>
   ));
 
 const SubjectSelect = ({ setSubject, selectedSubject }) => (
-  <ButtonGroup>{renderSubjectButtons(setSubject, selectedSubject)}</ButtonGroup>
+  <ButtonGroup className="subjectSelect">
+    {renderSubjectButtons(setSubject, selectedSubject)}
+  </ButtonGroup>
 );
 
 export { SubjectSelect };

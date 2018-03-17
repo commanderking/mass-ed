@@ -11,7 +11,6 @@ import {
 } from "./mcasActions";
 import { McasChart } from "./components/McasChart";
 import { SchoolSelect } from "./components/SchoolSelect";
-import { SubjectSelect } from "./components/SubjectSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
 import { selectAllSchoolsBySubject } from "./mcasSelector";
@@ -70,10 +69,6 @@ class UnwrappedMcasContainer extends Component<Props, State> {
     return (
       <div>
         <div className="schoolSelectWrapper">
-          <SubjectSelect
-            setSubject={setSubject}
-            selectedSubject={selectedSubject}
-          />
           <SchoolSelect
             selectSchool={selectSchool}
             allSchools={allSchoolsBySubject}
@@ -90,7 +85,11 @@ class UnwrappedMcasContainer extends Component<Props, State> {
             }}
           />
         </div>
-        <McasChart selectedSchools={selectedSchools} />
+        <McasChart
+          selectedSchools={selectedSchools}
+          setSubject={setSubject}
+          selectedSubject={selectedSubject}
+        />
         <SelectedSchoolsComponent
           selectedSchools={selectedSchools}
           deleteSchool={deleteSchool}

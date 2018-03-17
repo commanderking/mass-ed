@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import { VictoryChart, VictoryLabel, VictoryGroup, VictoryBar } from "victory";
+import { SubjectSelect } from "./SubjectSelect";
 import { graphColors } from "../mcasConstants";
 
 import type { SchoolMcasType } from "../mcas.flow";
@@ -41,16 +42,23 @@ type Props = {
   selectedSchools: Array<SchoolMcasType>
 };
 
-const McasChart = ({ selectedSchools }: Props) => {
+const McasChart = ({ selectedSchools, setSubject, selectedSubject }: Props) => {
   return (
     <div className="mcasChartWrapper">
-      <VictoryChart domainPadding={graphConstants.DOMAIN_PADDING}>
-        <VictoryLabel
-          text={"MCAS 2017 Scores"}
-          textAnchor="middle"
-          x={250}
-          y={20}
-        />
+      <h3>MCAS 2017 Scores</h3>
+      <SubjectSelect
+        setSubject={setSubject}
+        selectedSubject={selectedSubject}
+      />
+      <VictoryChart
+        domainPadding={graphConstants.DOMAIN_PADDING}
+        style={{
+          parent: {
+            border: "1px solid #ccc",
+            marginTop: "-40px"
+          }
+        }}
+      >
         <VictoryGroup
           offset={20}
           padding={-50}
