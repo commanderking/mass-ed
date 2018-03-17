@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { SchoolLabel } from "./SchoolLabel";
+import { Button } from "reactstrap";
 
 describe("School Label", () => {
   let mockProps = {
@@ -19,7 +20,7 @@ describe("School Label", () => {
   });
 
   it("button calls deleteSchool prop function", () => {
-    const deleteSchoolButton = wrapper.find("button");
+    const deleteSchoolButton = wrapper.find(Button);
     deleteSchoolButton.simulate("click");
     expect(mockProps.deleteSchool).toHaveBeenCalledTimes(1);
     expect(mockProps.deleteSchool).toHaveBeenCalledWith(mockProps.schoolCode);

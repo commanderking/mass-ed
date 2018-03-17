@@ -17,6 +17,7 @@ const SchoolSelect = ({ selectSchool, allSchools, disabled }: Props) => {
         style={{ width: 500 }}
         onSelect={(selectValue, option) => {
           if (selectValue) {
+            console.log(selectValue, option.props);
             selectSchool(option.props.index);
           }
         }}

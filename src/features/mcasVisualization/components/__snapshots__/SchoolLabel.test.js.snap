@@ -15,11 +15,14 @@ exports[`School Label renders correct structure 1`] = `
   <span>
     mock-school-name
   </span>
-  <button
+  <Button
     className="closeGraphButton"
+    color="danger"
     onClick={[Function]}
+    size="sm"
+    tag="button"
   >
     X
-  </button>
+  </Button>
 </div>
 `;

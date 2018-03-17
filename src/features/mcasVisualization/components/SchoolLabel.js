@@ -1,5 +1,6 @@
 // @flow
 import React from "react";
+import { Button } from "reactstrap";
 import { graphColors } from "../mcasConstants";
 
 type Props = {
@@ -22,14 +23,16 @@ export const SchoolLabel = ({
         style={{ backgroundColor: graphColors[index] }}
       />
       <span>{schoolName}</span>
-      <button
+      <Button
         className="closeGraphButton"
         onClick={() => {
           deleteSchool(schoolCode);
         }}
+        color="danger"
+        size="sm"
       >
         X
-      </button>
+      </Button>
     </div>
   );
 };

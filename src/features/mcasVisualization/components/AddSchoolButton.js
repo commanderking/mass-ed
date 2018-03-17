@@ -1,9 +1,10 @@
 import React from "react";
+import { Button } from "reactstrap";
 
 const AddSchoolButton = ({ onClick, disabled }) => (
-  <button disabled={disabled} onClick={onClick}>
+  <Button disabled={disabled} onClick={onClick} color="primary">
     Add School
-  </button>
+  </Button>
 );
 
 export { AddSchoolButton };

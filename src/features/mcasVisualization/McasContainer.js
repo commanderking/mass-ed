@@ -16,6 +16,13 @@ import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
 import type { SchoolMcasType, SchoolCodeType } from "./mcas.flow.js";
 
+import {
+  selectAllSchools,
+  selectSelectedSubject,
+  selectSelectedSchools,
+  selectDropdownSchoolIndex
+} from "./mcasReducer";
+
 type Props = {
   selectedSchools: Array<SchoolMcasType>,
   dropdownSchoolIndex: number,
@@ -92,6 +99,7 @@ class UnwrappedMcasContainer extends Component<Props, State> {
 }
 
 const mapStateToProps = state => {
+  /*
   const {
     allSchools,
     selectedSchools,
@@ -103,6 +111,13 @@ const mapStateToProps = state => {
     selectedSchools,
     dropdownSchoolIndex,
     selectedSubject
+  };
+  */
+  return {
+    allSchools: selectAllSchools(state),
+    selectedSchools: selectSelectedSchools(state),
+    dropdownSchoolIndex: selectDropdownSchoolIndex(state),
+    selectedSubject: selectSelectedSubject(state)
   };
 };
 
@@ -121,7 +136,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(deleteSchoolAction(schoolIndex));
     },
     setSubject: subject => {
-      console.log("subject", subject);
       dispatch(setSubjectAction(subject));
     }
   };
