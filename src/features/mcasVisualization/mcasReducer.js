@@ -34,6 +34,13 @@ const mcas = (state = initialState, action) => {
         selectedSubject: action.payload.subject
       };
 
+    case mcasActionTypes.SET_SUBJECT_SUCCEEDED:
+      return {
+        ...state,
+        selectedSchools: action.payload.selectedSchoolsData.data.schools
+      };
+    case mcasActionTypes.SET_SUBJECT_FAILED:
+      return state;
     // Add School
     case mcasActionTypes.ADD_SCHOOL_REQUESTED:
       return state;

@@ -23,12 +23,21 @@ describe("McasContainer", () => {
     };
   });
 
-  it("renders with correct structure", () => {
+  it("renders with correct structure if no school selected", () => {
+    const wrapper = shallow(<UnwrappedMcasContainer {...mockProps} />);
+    expect(wrapper.find(SchoolSelect)).toHaveLength(1);
+    expect(wrapper.find(McasChart)).toHaveLength(0);
+    expect(wrapper.find(SelectedSchoolsComponent)).toHaveLength(0);
+  });
+
+  it("renders with correct structure if no school selected", () => {
+    mockProps.selectedSchools = [
+      { schoolCode: 22, schoolName: "Arlington", subject: "ELA" }
+    ];
     const wrapper = shallow(<UnwrappedMcasContainer {...mockProps} />);
     expect(wrapper.find(SchoolSelect)).toHaveLength(1);
     expect(wrapper.find(McasChart)).toHaveLength(1);
     expect(wrapper.find(SelectedSchoolsComponent)).toHaveLength(1);
-    expect(wrapper.find(SubjectSelect)).toHaveLength(1);
   });
 
   it("clicking add school button fires correct action", () => {

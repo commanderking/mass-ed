@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, ButtonGroup } from "reactstrap";
-
-export const subjects = ["ela", "math"];
+import { subjectsConstants } from "../mcasConstants";
+export const subjects = [subjectsConstants.ELA, subjectsConstants.MATH];
 
 const isSelectedSubject = (subject, selectedSubject) =>
   subject === selectedSubject;

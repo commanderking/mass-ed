@@ -32,6 +32,23 @@ const allSchoolsQueryString = JSON.stringify({
 }`
 });
 
+const createQueryStringWithSchoolCodeAndSubject = (subject, schoolCodes) => {
+  return JSON.stringify({
+    query: `{
+      schools(subject: "${subject}", schoolCodes: [${schoolCodes}])
+      {
+        subject
+        schoolName
+        schoolCode
+        exceededPercent
+        metPercent
+        partiallyMetPercent
+        notMetPercent
+      }
+    }`
+  });
+};
+
 export const fetchSchoolArray = schoolCode => {
   const queryString = createQueryStringWithSchoolCode(schoolCode);
   return fetch(graphQLEndpoint, {
@@ -54,5 +71,21 @@ export const fetchAllSchools = () => {
     .then(response => response.json())
     .catch(error => {
       console.log("Request fetchAllSchools failed", error);
+    });
+};
+
+export const fetchAllSelectedSchools = ({ subject, schoolCodes }) => {
+  const queryString = createQueryStringWithSchoolCodeAndSubject(
+    subject,
+    schoolCodes
+  );
+  return fetch(graphQLEndpoint, {
+    method: "POST",
+    headers,
+    body: queryString
+  })
+    .then(response => response.json())
+    .catch(error => {
+      console.log("Request failed", error);
     });
 };

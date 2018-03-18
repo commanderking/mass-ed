@@ -5,4 +5,9 @@
  * #ff6961 - pastel red
  */
 
+export const subjectsConstants = {
+  ELA: "ELA",
+  MATH: "MATH"
+};
+
 export const graphColors = ["#aec6cf", "#b19cd9", "#77dd77", "#ff6961"];
