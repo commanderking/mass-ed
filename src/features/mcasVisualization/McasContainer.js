@@ -100,7 +100,7 @@ class UnwrappedMcasContainer extends Component<Props, State> {
             />
           </div>
         ) : (
-          <div>Awaiting School Selection... </div>
+          <div>Awaiting School to Be Added </div>
         )}
       </div>
     );

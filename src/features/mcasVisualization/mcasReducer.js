@@ -1,4 +1,5 @@
 import { mcasActionTypes } from "./mcasActions";
+import { subjectsConstants } from "./mcasConstants";
 
 const initialState = {
   allSchools: [],
@@ -11,7 +12,7 @@ export const mcasReducerPath = "mcas";
 
 export const selectAllSchools = state => state.mcas.allSchools;
 export const selectSelectedSubject = state =>
-  state.mcas.selectedSubject || "ela";
+  state.mcas.selectedSubject || subjectsConstants.ELA;
 export const selectSelectedSchools = state => state.mcas.selectedSchools;
 export const selectDropdownSchoolIndex = state =>
   state.mcas.dropdownSchoolIndex;

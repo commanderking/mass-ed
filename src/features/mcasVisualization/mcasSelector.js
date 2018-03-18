@@ -1,13 +1,27 @@
 import { createSelector } from "reselect";
 
-import { selectAllSchools, selectSelectedSubject } from "./mcasReducer";
+import {
+  selectAllSchools,
+  selectSelectedSubject,
+  selectSelectedSchools
+} from "./mcasReducer";
+
+const hasAlreadySelectedSchool = (schoolCodes, school) =>
+  schoolCodes.includes(school.schoolCode);
 
 export const selectAllSchoolsBySubject = createSelector(
   selectAllSchools,
   selectSelectedSubject,
-  (schools, subject) => {
-    return schools.filter(school => {
-      return school.subject === "ELA";
+  selectSelectedSchools,
+  (allSchools, subject, selectedSchools) => {
+    const selectedSchoolCodes = selectedSchools.map(
+      school => school.schoolCode
+    );
+    return allSchools.filter(school => {
+      return (
+        school.subject === subject &&
+        !hasAlreadySelectedSchool(selectedSchoolCodes, school)
+      );
     });
   }
 );
