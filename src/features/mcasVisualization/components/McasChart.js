@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import { VictoryChart, VictoryLabel, VictoryGroup, VictoryBar } from "victory";
+import { VictoryChart, VictoryAxis, VictoryGroup, VictoryBar } from "victory";
 import { SubjectSelect } from "./SubjectSelect";
 import { graphColors } from "../mcasConstants";
 
@@ -84,6 +84,8 @@ const McasChart = ({ selectedSchools, setSubject, selectedSubject }: Props) => {
             );
           })}
         </VictoryGroup>
+        <VictoryAxis />
+        <VictoryAxis dependentAxis domain={[0, 80]} />
       </VictoryChart>
     </div>
   );

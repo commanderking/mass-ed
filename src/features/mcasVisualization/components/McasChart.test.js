@@ -13,9 +13,10 @@ describe("McasChart", () => {
     beforeEach(() => {
       wrapper = shallow(<McasChart {...mockProps} />);
     });
-    it("renders correct graph title", () => {
-      const title = wrapper.find(VictoryLabel);
-      expect(title).toHaveLength(1);
+    it("renders custom axis", () => {
+      const axes = wrapper.find(VictoryAxis);
+      expect(axes).toHaveLength(2);
+      expect(axes.at(1).props().domain).toEqual([0, 80]);
     });
 
     it("renders correct bar component", () => {
