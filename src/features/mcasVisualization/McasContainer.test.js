@@ -3,7 +3,6 @@ import { allSchoolsMockData } from "./TestData";
 import { UnwrappedMcasContainer } from "./McasContainer";
 import { shallow } from "enzyme";
 import { McasChart } from "./components/McasChart";
-import { SubjectSelect } from "./components/SubjectSelect";
 import { SchoolDistrictSelect } from "./components/SchoolDistrictSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
@@ -16,7 +15,7 @@ describe("McasContainer", () => {
       allSchoolsBySubject: allSchoolsMockData,
       addAllSchools: jest.fn(),
       selectedSchools: [],
-      dropdownCode: 0,
+      dropdownCode: 4450105,
       addSchoolClick: jest.fn(),
       selectSchool: jest.fn(),
       deleteSchool: jest.fn()

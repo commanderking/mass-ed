@@ -2,25 +2,13 @@
 
 exports[`SubjectSelect renders correct structure 1`] = `
 <ButtonGroup
+  className="subjectSelect"
   role="group"
   tag="div"
 >
   <Button
     color="secondary"
-    key="subjectSelect-ela-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "backgroundColor": "red",
-      }
-    }
-    tag="button"
-  >
-    ela
-  </Button>
-  <Button
-    color="secondary"
-    key="subjectSelect-math-button"
+    key="subjectSelect-ELA-button"
     onClick={[Function]}
     style={
       Object {
@@ -29,7 +17,20 @@ exports[`SubjectSelect renders correct structure 1`] = `
     }
     tag="button"
   >
-    math
+    ELA
+  </Button>
+  <Button
+    color="secondary"
+    key="subjectSelect-MATH-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "backgroundColor": "green",
+      }
+    }
+    tag="button"
+  >
+    MATH
   </Button>
 </ButtonGroup>
 `;

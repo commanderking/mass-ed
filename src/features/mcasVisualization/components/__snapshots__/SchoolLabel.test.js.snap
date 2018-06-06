@@ -4,25 +4,27 @@ exports[`School Label renders correct structure 1`] = `
 <div
   className="schoolLabelWrapper"
 >
-  <div
-    className="selectedSchoolsIcon"
-    style={
-      Object {
-        "backgroundColor": "#b19cd9",
+  <div>
+    <Button
+      className="closeGraphButton"
+      color="danger"
+      onClick={[Function]}
+      size="sm"
+      tag="button"
+    >
+      X
+    </Button>
+    <div
+      className="selectedSchoolsIcon"
+      style={
+        Object {
+          "backgroundColor": "#b19cd9",
+        }
       }
-    }
-  />
-  <span>
-    mock-school-name
-  </span>
-  <Button
-    className="closeGraphButton"
-    color="danger"
-    onClick={[Function]}
-    size="sm"
-    tag="button"
-  >
-    X
-  </Button>
+    />
+    <span>
+      mock-school-name
+    </span>
+  </div>
 </div>
 `;
