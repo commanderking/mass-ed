@@ -4,7 +4,7 @@ import { VictoryChart, VictoryAxis, VictoryGroup, VictoryBar } from "victory";
 import { SubjectSelect } from "./SubjectSelect";
 import { graphColors } from "../mcasConstants";
 
-import type { SchoolMcasType } from "../mcas.flow";
+import type { SchoolMcasType, SubjectType } from "../mcas.flow";
 
 type schoolDataForChart = {
   x: "Exceeding" | "Meeting" | "Partially Meeting" | "Not Meeting",
@@ -39,7 +39,9 @@ export const graphConstants = {
 };
 
 type Props = {
-  selectedSchools: Array<SchoolMcasType>
+  selectedSchools: Array<SchoolMcasType>,
+  selectedSubject: SubjectType,
+  setSubject: SubjectType => void
 };
 
 const McasChart = ({ selectedSchools, setSubject, selectedSubject }: Props) => {

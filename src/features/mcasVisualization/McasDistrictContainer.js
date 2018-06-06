@@ -23,14 +23,15 @@ import {
 } from "./mcasReducer";
 
 type Props = {
-  selectedSchools: Array<SchoolMcasType>,
+  selectedDistricts: Array<SchoolMcasType>,
   dropdownCode: number,
   // TODO: Need to figure out how to handle functions
-  allSchools: Array<SchoolMcasType>,
-  addAllSchools: () => void,
+  allDistricts: Array<SchoolMcasType>,
+  addDistrict: SchoolCodeType => void,
   addSchoolClick: SchoolCodeType => void,
-  selectSchool: SchoolCodeType => void,
-  deleteSchool: SchoolCodeType => void
+  selectDistrict: SchoolCodeType => void,
+  deleteDistrict: SchoolCodeType => void,
+  fetchAllDistricts: () => void
 };
 
 type State = {
@@ -84,7 +85,7 @@ class UnwrappedMcasDistrictContainer extends Component<Props, State> {
             <McasChart
               selectedSchools={selectedDistricts}
               setSubject={() => {}}
-              selectedSubject="math"
+              selectedSubject="MATH"
             />
             <SelectedSchoolsComponent
               selectedSchools={selectedDistricts}

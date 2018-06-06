@@ -15,24 +15,31 @@ import { SchoolDistrictSelect } from "./components/SchoolDistrictSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
 import { selectAllSchoolsBySubject } from "./mcasSelector";
-import type { SchoolMcasType, SchoolCodeType } from "./mcas.flow.js";
+import type {
+  SchoolMcasType,
+  SchoolCodeType,
+  SubjectType
+} from "./mcas.flow.js";
 
 import {
-  selectSchoolGroup,
   selectSelectedSubject,
   selectSelectedSchools,
   selectDropdownCode
 } from "./mcasReducer";
+import { schoolGroupConstants } from "./mcasConstants";
 
 type Props = {
   selectedSchools: Array<SchoolMcasType>,
   dropdownCode: number,
-  // TODO: Need to figure out how to handle functions
   allSchools: Array<SchoolMcasType>,
+  allSchoolsBySubject: Array<SchoolMcasType>,
+  selectedSubject: SubjectType,
+  // TODO: Type actions better here
   addAllSchools: () => void,
   addSchoolClick: SchoolCodeType => void,
   selectSchool: SchoolCodeType => void,
-  deleteSchool: SchoolCodeType => void
+  deleteSchool: SchoolCodeType => void,
+  setSubject: SubjectType => void
 };
 
 type State = {
@@ -57,7 +64,6 @@ class UnwrappedMcasContainer extends Component<Props, State> {
       dropdownCode,
       addSchoolClick,
       setSubject,
-      schoolGroup,
       selectedSubject,
       selectSchool,
       deleteSchool
@@ -79,7 +85,7 @@ class UnwrappedMcasContainer extends Component<Props, State> {
             disabled={hasReachedMaxSchools}
           />
           <AddSchoolButton
-            schoolGroup={schoolGroup}
+            schoolGroup={schoolGroupConstants.SCHOOL}
             disabled={hasReachedMaxSchools}
             onClick={() => {
               if (dropdownCode || dropdownCode === 0) {
@@ -111,7 +117,6 @@ class UnwrappedMcasContainer extends Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    schoolGroup: selectSchoolGroup(state),
     allSchoolsBySubject: selectAllSchoolsBySubject(state),
     selectedSchools: selectSelectedSchools(state),
     dropdownCode: selectDropdownCode(state),

@@ -27,7 +27,7 @@ const renderSchoolOrDistrictButtons = setSchoolGroup =>
 
 const mapStateToProps = state => ({});
 
-class UnwrappedMcasSchoolGroupOptions extends React.Component {
+class UnwrappedMcasSchoolGroupOptions extends React.Component<*> {
   render() {
     const { setSchoolGroup } = this.props;
     return (
