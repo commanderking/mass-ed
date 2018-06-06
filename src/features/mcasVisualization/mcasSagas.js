@@ -1,23 +1,29 @@
 import { call, put, select, takeEvery } from "redux-saga/effects";
 import { mcasActionTypes } from "./mcasActions";
-import { selectSelectedSchools } from "./mcasReducer";
+import { selectSelectedSchools, selectSelectedSubject } from "./mcasReducer";
 import { subjectsConstants } from "./mcasConstants";
 import {
   fetchSchoolArray,
   fetchAllSchools,
-  fetchAllSelectedSchools
+  fetchAllSelectedSchools,
+  fetchAllDistricts,
+  fetchDistrictsMcas
 } from "./mcasDataRequests";
 const {
   ADD_SCHOOL_SUCCEEDED,
   ADD_SCHOOL_FAILED,
   LOAD_ALL_SCHOOLS_SUCCEEDED,
-  LOAD_ALL_SCHOOLS_FAILED
+  LOAD_ALL_SCHOOLS_FAILED,
+  LOAD_ALL_DISTRICTS_SUCCEEDED,
+  LOAD_ALL_DISTRICTS_FAILED,
+  LOAD_ALL_DISTRICT_MCAS_DATA_SUCCEEDED,
+  LOAD_ALL_DISTRICT_MCAS_DATA_FAILED
 } = mcasActionTypes;
 
 // TODO: Should be able to refactors this with fetchSelectedSchoolsForSubjectSwitch
 function* fetchSchoolMcasData(action) {
   try {
-    const schoolData = yield call(fetchSchoolArray, action.payload.schoolCode);
+    const schoolData = yield call(fetchSchoolArray, action.payload.code);
     yield put({
       type: ADD_SCHOOL_SUCCEEDED,
       payload: { schoolData: schoolData.data.school }
@@ -32,7 +38,7 @@ function* fetchSelectedSchoolsForSubjectSwitch(action) {
     const selectedSchools = yield select(selectSelectedSchools);
     // TODO: SetSubject should not fire graphql request if subject is the same
     // const selectedSubject = yield select(selectSelectedSubject);
-    const schoolCodes = selectedSchools.map(school => school.schoolCode);
+    const schoolCodes = selectedSchools.map(school => school.code);
     const subject = subjectsConstants[action.payload.subject];
     // TODO: This toUpperCase is needed for graphQL call - should make ENUM to make graphql and this consistent
     const selectedSchoolsData = yield call(fetchAllSelectedSchools, {
@@ -66,6 +72,40 @@ function* fetchAllSchoolData(action) {
   }
 }
 
+function* fetchAllDistrictData(action) {
+  try {
+    const allDistrictData = yield call(fetchAllDistricts);
+    console.log("allDistrictData", allDistrictData);
+    yield put({
+      type: LOAD_ALL_DISTRICTS_SUCCEEDED,
+      payload: { data: allDistrictData.data.allDistricts }
+    });
+  } catch (e) {
+    yield put({
+      type: LOAD_ALL_DISTRICTS_FAILED
+    });
+  }
+}
+
+function* fetchDistrictMcasData(action) {
+  try {
+    const subject = yield select(selectSelectedSubject);
+    const studentGroup = "ALL";
+    const districtMcasData = yield call(fetchDistrictsMcas, {
+      codes: [action.payload.code],
+      subject,
+      studentGroup
+    });
+    console.log("districtMcasData", districtMcasData);
+    yield put({
+      type: LOAD_ALL_DISTRICT_MCAS_DATA_SUCCEEDED,
+      payload: { districtMcas: districtMcasData.data.districtMcas }
+    });
+  } catch (e) {
+    yield put({ type: LOAD_ALL_DISTRICT_MCAS_DATA_FAILED, message: e.message });
+  }
+}
+
 /*
   Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
   Allows concurrent fetches of user.
@@ -74,6 +114,14 @@ function* fetchSchoolMcasDataSaga() {
   yield takeEvery("ADD_SCHOOL_REQUESTED", fetchSchoolMcasData);
   yield takeEvery("LOAD_ALL_SCHOOLS_REQUESTED", fetchAllSchoolData);
   yield takeEvery("SET_SUBJECT", fetchSelectedSchoolsForSubjectSwitch);
+  yield takeEvery(
+    mcasActionTypes.LOAD_ALL_DISTRICTS_REQUESTED,
+    fetchAllDistrictData
+  );
+  yield takeEvery(
+    mcasActionTypes.LOAD_ALL_DISTRICT_MCAS_DATA_REQUESTED,
+    fetchDistrictMcasData
+  );
 }
 
 export { fetchSchoolMcasDataSaga };

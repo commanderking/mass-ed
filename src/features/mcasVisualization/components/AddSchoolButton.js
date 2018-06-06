@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "reactstrap";
 
-const AddSchoolButton = ({ onClick, disabled }) => (
+const AddSchoolButton = ({ schoolGroup, onClick, disabled }) => (
   <Button disabled={disabled} onClick={onClick} color="primary">
-    Add School
+    ADD {schoolGroup}
   </Button>
 );
 

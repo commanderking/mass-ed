@@ -10,15 +10,18 @@ type Props = {
   disabled: boolean
 };
 
-const SchoolSelect = ({ selectSchool, allSchools, disabled }: Props) => {
+const SchoolDistrictSelect = ({
+  selectSchool,
+  allSchools,
+  disabled
+}: Props) => {
   return (
     <div style={{ width: 300 }}>
       <Select
         style={{ width: 500 }}
         onSelect={(selectValue, option) => {
           if (selectValue) {
-            console.log(selectValue, option.props);
-            selectSchool(option.props.index);
+            selectSchool(option.props.code);
           }
         }}
         dropdownStyle={{
@@ -28,13 +31,18 @@ const SchoolSelect = ({ selectSchool, allSchools, disabled }: Props) => {
         disabled={disabled}
         allowClear
         combobox
-        backfill
       >
         {allSchools.map((school, index) => {
-          const schoolName = parseSchoolNameFromCompleteName(school.schoolName);
+          // TODO: Selector should really handle any parsing before we get into the component
+          const name = parseSchoolNameFromCompleteName(school.name);
           return (
-            <Option key={index.toString()} value={schoolName} index={index}>
-              {schoolName}
+            <Option
+              key={index.toString()}
+              value={name}
+              index={index}
+              code={school.code}
+            >
+              {name}
             </Option>
           );
         })}
@@ -43,4 +51,4 @@ const SchoolSelect = ({ selectSchool, allSchools, disabled }: Props) => {
   );
 };
 
-export { SchoolSelect };
+export { SchoolDistrictSelect };

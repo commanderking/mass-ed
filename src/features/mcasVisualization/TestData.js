@@ -1,23 +1,23 @@
 export const allSchoolsMockData = [
   {
     subject: "ELA",
-    schoolName:
+    name:
       "Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School",
-    schoolCode: 4450105
+    code: 4450105
   },
   {
     subject: "ELA",
-    schoolName: "Abington - Abington Middle School",
-    schoolCode: 10405
+    name: "Abington - Abington Middle School",
+    code: 10405
   },
   {
     subject: "ELA",
-    schoolName: "Newton Middle",
-    schoolCode: 1242
+    name: "Newton Middle",
+    code: 1242
   },
   {
     subject: "ELA",
-    schoolName: "Arlington Middle",
-    schoolCode: 1242
+    name: "Arlington Middle",
+    code: 1242
   }
 ];

@@ -16,7 +16,7 @@ body {
 }
 
 .schoolLabelsWrapper {
-  max-width: 400px;
+  width: 400px;
   display: inline-block;
   vertical-align: top;
   text-align: left;

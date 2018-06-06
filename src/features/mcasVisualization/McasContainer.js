@@ -7,24 +7,26 @@ import {
   selectSchoolAction,
   deleteSchoolAction,
   addAllSchoolsAction,
+  loadAllDistrictsAction,
   setSubjectAction
 } from "./mcasActions";
 import { McasChart } from "./components/McasChart";
-import { SchoolSelect } from "./components/SchoolSelect";
+import { SchoolDistrictSelect } from "./components/SchoolDistrictSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
 import { selectAllSchoolsBySubject } from "./mcasSelector";
 import type { SchoolMcasType, SchoolCodeType } from "./mcas.flow.js";
 
 import {
+  selectSchoolGroup,
   selectSelectedSubject,
   selectSelectedSchools,
-  selectDropdownSchoolIndex
+  selectDropdownCode
 } from "./mcasReducer";
 
 type Props = {
   selectedSchools: Array<SchoolMcasType>,
-  dropdownSchoolIndex: number,
+  dropdownCode: number,
   // TODO: Need to figure out how to handle functions
   allSchools: Array<SchoolMcasType>,
   addAllSchools: () => void,
@@ -52,9 +54,10 @@ class UnwrappedMcasContainer extends Component<Props, State> {
     const {
       allSchoolsBySubject,
       selectedSchools,
-      dropdownSchoolIndex,
+      dropdownCode,
       addSchoolClick,
       setSubject,
+      schoolGroup,
       selectedSubject,
       selectSchool,
       deleteSchool
@@ -70,18 +73,17 @@ class UnwrappedMcasContainer extends Component<Props, State> {
     return (
       <div>
         <div className="schoolSelectWrapper">
-          <SchoolSelect
+          <SchoolDistrictSelect
             selectSchool={selectSchool}
             allSchools={allSchoolsBySubject}
             disabled={hasReachedMaxSchools}
           />
           <AddSchoolButton
+            schoolGroup={schoolGroup}
             disabled={hasReachedMaxSchools}
             onClick={() => {
-              if (dropdownSchoolIndex || dropdownSchoolIndex === 0) {
-                addSchoolClick(
-                  allSchoolsBySubject[dropdownSchoolIndex].schoolCode
-                );
+              if (dropdownCode || dropdownCode === 0) {
+                addSchoolClick(dropdownCode);
               }
             }}
           />
@@ -109,9 +111,10 @@ class UnwrappedMcasContainer extends Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
+    schoolGroup: selectSchoolGroup(state),
     allSchoolsBySubject: selectAllSchoolsBySubject(state),
     selectedSchools: selectSelectedSchools(state),
-    dropdownSchoolIndex: selectDropdownSchoolIndex(state),
+    dropdownCode: selectDropdownCode(state),
     selectedSubject: selectSelectedSubject(state)
   };
 };
@@ -121,8 +124,11 @@ const mapDispatchToProps = dispatch => {
     addAllSchools: () => {
       dispatch(addAllSchoolsAction());
     },
-    addSchoolClick: schoolCode => {
-      dispatch(addSchoolAction(schoolCode));
+    addSchoolClick: code => {
+      dispatch(addSchoolAction(code));
+    },
+    fetchAllDistricts: () => {
+      dispatch(loadAllDistrictsAction());
     },
     selectSchool: schoolIndex => {
       dispatch(selectSchoolAction(schoolIndex));

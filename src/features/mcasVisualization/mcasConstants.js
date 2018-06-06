@@ -10,4 +10,9 @@ export const subjectsConstants = {
   MATH: "MATH"
 };
 
+export const schoolGroupConstants = {
+  DISTRICT: "DISTRICT",
+  SCHOOL: "SCHOOL"
+};
+
 export const graphColors = ["#aec6cf", "#b19cd9", "#77dd77", "#ff6961"];

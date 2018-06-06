@@ -68,7 +68,7 @@ const McasChart = ({ selectedSchools, setSubject, selectedSubject }: Props) => {
           {selectedSchools.map((school, index) => {
             return (
               <VictoryBar
-                key={`${school.schoolName}-${school.schoolCode}`}
+                key={`${school.name}-${school.code}`}
                 labels={d => `${d.y}%`}
                 style={{
                   data: {

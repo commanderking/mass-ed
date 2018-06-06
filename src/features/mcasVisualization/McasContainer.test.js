@@ -4,7 +4,7 @@ import { UnwrappedMcasContainer } from "./McasContainer";
 import { shallow } from "enzyme";
 import { McasChart } from "./components/McasChart";
 import { SubjectSelect } from "./components/SubjectSelect";
-import { SchoolSelect } from "./components/SchoolSelect";
+import { SchoolDistrictSelect } from "./components/SchoolDistrictSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
 
@@ -16,7 +16,7 @@ describe("McasContainer", () => {
       allSchoolsBySubject: allSchoolsMockData,
       addAllSchools: jest.fn(),
       selectedSchools: [],
-      dropdownSchoolIndex: 0,
+      dropdownCode: 0,
       addSchoolClick: jest.fn(),
       selectSchool: jest.fn(),
       deleteSchool: jest.fn()
@@ -25,17 +25,17 @@ describe("McasContainer", () => {
 
   it("renders with correct structure if no school selected", () => {
     const wrapper = shallow(<UnwrappedMcasContainer {...mockProps} />);
-    expect(wrapper.find(SchoolSelect)).toHaveLength(1);
+    expect(wrapper.find(SchoolDistrictSelect)).toHaveLength(1);
     expect(wrapper.find(McasChart)).toHaveLength(0);
     expect(wrapper.find(SelectedSchoolsComponent)).toHaveLength(0);
   });
 
   it("renders with correct structure if no school selected", () => {
     mockProps.selectedSchools = [
-      { schoolCode: 22, schoolName: "Arlington", subject: "ELA" }
+      { code: 22, name: "Arlington", subject: "ELA" }
     ];
     const wrapper = shallow(<UnwrappedMcasContainer {...mockProps} />);
-    expect(wrapper.find(SchoolSelect)).toHaveLength(1);
+    expect(wrapper.find(SchoolDistrictSelect)).toHaveLength(1);
     expect(wrapper.find(McasChart)).toHaveLength(1);
     expect(wrapper.find(SelectedSchoolsComponent)).toHaveLength(1);
   });
@@ -47,7 +47,7 @@ describe("McasContainer", () => {
     buttonWrapper.simulate("click");
     expect(mockProps.addSchoolClick).toHaveBeenCalledTimes(1);
     expect(mockProps.addSchoolClick).toHaveBeenCalledWith(
-      mockProps.allSchoolsBySubject[0].schoolCode
+      mockProps.allSchoolsBySubject[0].code
     );
   });
 
@@ -61,7 +61,7 @@ describe("McasContainer", () => {
   it("disables add school button when four schools are set", () => {
     mockProps.selectedSchools = allSchoolsMockData;
     const wrapper = shallow(<UnwrappedMcasContainer {...mockProps} />);
-    const schoolSelectWrapper = wrapper.find(SchoolSelect);
+    const schoolSelectWrapper = wrapper.find(SchoolDistrictSelect);
     expect(schoolSelectWrapper.props()).toHaveProperty("disabled", true);
   });
 });

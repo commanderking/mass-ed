@@ -4,25 +4,20 @@ import { Button } from "reactstrap";
 import { graphColors } from "../mcasConstants";
 
 type Props = {
-  schoolName: string,
-  schoolCode: number,
+  name: string,
+  code: number,
   deleteSchool: any, // function
   index: number
 };
 
-export const SchoolLabel = ({
-  schoolName,
-  schoolCode,
-  deleteSchool,
-  index
-}: Props) => {
+export const SchoolLabel = ({ name, code, deleteSchool, index }: Props) => {
   return (
     <div className="schoolLabelWrapper">
       <div>
         <Button
           className="closeGraphButton"
           onClick={() => {
-            deleteSchool(schoolCode);
+            deleteSchool(code);
           }}
           color="danger"
           size="sm"
@@ -33,7 +28,7 @@ export const SchoolLabel = ({
           className="selectedSchoolsIcon"
           style={{ backgroundColor: graphColors[index] }}
         />
-        <span>{schoolName}</span>
+        <span>{name}</span>
       </div>
     </div>
   );

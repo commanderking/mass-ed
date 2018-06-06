@@ -6,13 +6,13 @@ const SelectedSchoolsComponent = ({ selectedSchools, deleteSchool }) => (
   <div className="schoolLabelsWrapper">
     <h3>Selected Schools</h3>
     {selectedSchools.map((school, index) => {
-      const { schoolName, schoolCode } = school;
+      const { name, code } = school;
       return (
         <SchoolLabel
-          key={schoolName}
+          key={name}
           index={index}
-          schoolName={parseSchoolNameFromCompleteName(schoolName)}
-          schoolCode={schoolCode}
+          name={parseSchoolNameFromCompleteName(name)}
+          code={code}
           deleteSchool={deleteSchool}
         />
       );

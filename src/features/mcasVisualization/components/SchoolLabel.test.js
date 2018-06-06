@@ -5,8 +5,8 @@ import { Button } from "reactstrap";
 
 describe("School Label", () => {
   let mockProps = {
-    schoolName: "mock-school-name",
-    schoolCode: 12345,
+    name: "mock-school-name",
+    code: 12345,
     deleteSchool: jest.fn(),
     index: 1
   };
@@ -23,6 +23,6 @@ describe("School Label", () => {
     const deleteSchoolButton = wrapper.find(Button);
     deleteSchoolButton.simulate("click");
     expect(mockProps.deleteSchool).toHaveBeenCalledTimes(1);
-    expect(mockProps.deleteSchool).toHaveBeenCalledWith(mockProps.schoolCode);
+    expect(mockProps.deleteSchool).toHaveBeenCalledWith(mockProps.code);
   });
 });

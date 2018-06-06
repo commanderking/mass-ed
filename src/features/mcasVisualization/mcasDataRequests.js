@@ -5,14 +5,14 @@ const headers = new Headers({
 
 const graphQLEndpoint = "http://localhost:4000/graphql";
 
-const createQueryStringWithSchoolCode = schoolCode => {
+const createQueryStringWithSchoolCode = code => {
   return JSON.stringify({
     query: `{
-    school(subject: "MATH", schoolCode: ${schoolCode})
+    school(subject: "MATH", schoolCode: ${code})
       {
         subject
-        schoolName
-        schoolCode
+        name
+        code
         exceededPercent
         metPercent
         partiallyMetPercent
@@ -26,8 +26,8 @@ const allSchoolsQueryString = JSON.stringify({
   query: `{
   allSchools {
     subject
-    schoolName
-    schoolCode
+    name
+    code
   }
 }`
 });
@@ -38,8 +38,8 @@ const createQueryStringWithSchoolCodeAndSubject = (subject, schoolCodes) => {
       schools(subject: "${subject}", schoolCodes: [${schoolCodes}])
       {
         subject
-        schoolName
-        schoolCode
+        name
+        code
         exceededPercent
         metPercent
         partiallyMetPercent
@@ -49,8 +49,25 @@ const createQueryStringWithSchoolCodeAndSubject = (subject, schoolCodes) => {
   });
 };
 
-export const fetchSchoolArray = schoolCode => {
-  const queryString = createQueryStringWithSchoolCode(schoolCode);
+const createQueryStringForDistrictMcas = (codes, subject, studentGroup) => {
+  return JSON.stringify({
+    query: `{
+      districtMcas(subject: "${subject}", codes: [${codes}], studentGroup: "${studentGroup}")
+      {
+        subject
+        name
+        code
+        exceededPercent
+        metPercent
+        partiallyMetPercent
+        notMetPercent
+      }
+    }`
+  });
+};
+
+export const fetchSchoolArray = code => {
+  const queryString = createQueryStringWithSchoolCode(code);
   return fetch(graphQLEndpoint, {
     method: "POST",
     headers,
@@ -71,6 +88,45 @@ export const fetchAllSchools = () => {
     .then(response => response.json())
     .catch(error => {
       console.log("Request fetchAllSchools failed", error);
+    });
+};
+
+// TODO: studentGroup should be dynamically set
+const allDistrictsQueryString = JSON.stringify({
+  query: `{
+  allDistricts {
+    name
+    code
+  }
+}`
+});
+
+export const fetchAllDistricts = () => {
+  return fetch(graphQLEndpoint, {
+    method: "POST",
+    headers,
+    body: allDistrictsQueryString
+  })
+    .then(response => response.json())
+    .catch(error => {
+      console.log("Request fetchAllSchools failed", error);
+    });
+};
+
+export const fetchDistrictsMcas = ({ codes, subject, studentGroup }) => {
+  const queryString = createQueryStringForDistrictMcas(
+    codes,
+    subject,
+    studentGroup
+  );
+  return fetch(graphQLEndpoint, {
+    method: "POST",
+    headers,
+    body: queryString
+  })
+    .then(response => response.json())
+    .catch(error => {
+      console.log("Request failed", error);
     });
 };
 
