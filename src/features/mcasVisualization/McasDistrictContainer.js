@@ -21,6 +21,7 @@ import {
   selectAllDistricts,
   selectSelectedDistricts
 } from "./mcasReducer";
+import { schoolGroupConstants, subjectsConstants } from "./mcasConstants";
 
 type Props = {
   selectedDistricts: Array<SchoolMcasType>,
@@ -56,7 +57,9 @@ class UnwrappedMcasDistrictContainer extends Component<Props, State> {
       selectDistrict,
       addDistrict,
       selectedDistricts,
-      deleteDistrict
+      deleteDistrict,
+      setSubject,
+      subject
     } = this.props;
     const { loading } = this.state;
     const hasReachedMaxSchools = selectedDistricts.length >= 4;
@@ -72,7 +75,7 @@ class UnwrappedMcasDistrictContainer extends Component<Props, State> {
           disabled={hasReachedMaxSchools}
         />
         <AddSchoolButton
-          schoolGroup="DISTRICT"
+          schoolGroup={schoolGroupConstants.DISTRICT}
           disabled={hasReachedMaxSchools}
           onClick={() => {
             if (dropdownCode || dropdownCode === 0) {
@@ -84,8 +87,8 @@ class UnwrappedMcasDistrictContainer extends Component<Props, State> {
           <div>
             <McasChart
               selectedSchools={selectedDistricts}
-              setSubject={() => {}}
-              selectedSubject="MATH"
+              setSubject={setSubject}
+              selectedSubject={subject}
             />
             <SelectedSchoolsComponent
               selectedSchools={selectedDistricts}
@@ -105,7 +108,8 @@ const mapStateToProps = state => {
     selectedSubject: selectSelectedSubject(state),
     selectedDistricts: selectSelectedDistricts(state),
     allDistricts: selectAllDistricts(state),
-    dropdownCode: selectDropdownDistrictIndex(state)
+    dropdownCode: selectDropdownDistrictIndex(state),
+    subject: selectSelectedSubject(state)
   };
 };
 

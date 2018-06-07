@@ -1,6 +1,10 @@
 import { call, put, select, takeEvery } from "redux-saga/effects";
 import { mcasActionTypes } from "./mcasActions";
-import { selectSelectedSchools, selectSelectedSubject } from "./mcasReducer";
+import {
+  selectSelectedSchools,
+  selectSelectedSubject,
+  selectSelectedDistricts
+} from "./mcasReducer";
 import { subjectsConstants } from "./mcasConstants";
 import {
   fetchSchoolArray,
@@ -106,6 +110,26 @@ function* fetchDistrictMcasData(action) {
   }
 }
 
+// TODO: Need to reload the selectDistricts after subject change
+/*
+function* fetchDistrictMcasDataForSelectedDistricts() {
+  try {
+    const subject = yield select(selectSelectedSubject);
+    const studentGroup = "ALL";
+    const districts = yield select(selectSelectedDistricts);
+    if (districts) {
+      const districtMcasData = yield call(fetchDistrictsMcas, {
+        codes: districts,
+        subject,
+        studentGroup
+      });
+    }
+  } catch (e) {
+    console.log('')
+  }
+}
+*/
+
 /*
   Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
   Allows concurrent fetches of user.
@@ -114,6 +138,7 @@ function* fetchSchoolMcasDataSaga() {
   yield takeEvery("ADD_SCHOOL_REQUESTED", fetchSchoolMcasData);
   yield takeEvery("LOAD_ALL_SCHOOLS_REQUESTED", fetchAllSchoolData);
   yield takeEvery("SET_SUBJECT", fetchSelectedSchoolsForSubjectSwitch);
+  // yield takeEvery("SET_SUBJECT", fetchDistrictMcasDataForSelectedDistricts);
   yield takeEvery(
     mcasActionTypes.LOAD_ALL_DISTRICTS_REQUESTED,
     fetchAllDistrictData

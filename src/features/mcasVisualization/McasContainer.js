@@ -88,7 +88,6 @@ class UnwrappedMcasContainer extends Component<Props, State> {
             schoolGroup={schoolGroupConstants.SCHOOL}
             disabled={hasReachedMaxSchools}
             onClick={() => {
-              console.log("dropdownCode", dropdownCode);
               if (dropdownCode || dropdownCode === 0) {
                 addSchoolClick(dropdownCode);
               }
