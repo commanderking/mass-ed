@@ -6,14 +6,18 @@ import {
   selectDistrictAction,
   deleteDistrictAction,
   loadAllDistrictsAction,
-  setSubjectAction,
+  setDistrictSubjectAction,
   loadDistrictMcas
 } from "./mcasActions";
 import { McasChart } from "./components/McasChart";
 import { SchoolDistrictSelect } from "./components/SchoolDistrictSelect";
 import { AddSchoolButton } from "./components/AddSchoolButton";
 import { SelectedSchoolsComponent } from "./components/SelectedSchoolsComponent";
-import type { SchoolMcasType, SchoolCodeType } from "./mcas.flow.js";
+import type {
+  SchoolMcasType,
+  SchoolCodeType,
+  SubjectType
+} from "./mcas.flow.js";
 
 import {
   selectSelectedSubject,
@@ -21,17 +25,19 @@ import {
   selectAllDistricts,
   selectSelectedDistricts
 } from "./mcasReducer";
-import { schoolGroupConstants, subjectsConstants } from "./mcasConstants";
+import { schoolGroupConstants } from "./mcasConstants";
 
 type Props = {
   selectedDistricts: Array<SchoolMcasType>,
   dropdownCode: number,
   // TODO: Need to figure out how to handle functions
   allDistricts: Array<SchoolMcasType>,
-  addDistrict: SchoolCodeType => void,
+  subject: SubjectType,
+  addDistrict: (Array<SchoolCodeType>) => void,
   addSchoolClick: SchoolCodeType => void,
   selectDistrict: SchoolCodeType => void,
   deleteDistrict: SchoolCodeType => void,
+  setSubject: string => void,
   fetchAllDistricts: () => void
 };
 
@@ -79,7 +85,7 @@ class UnwrappedMcasDistrictContainer extends Component<Props, State> {
           disabled={hasReachedMaxSchools}
           onClick={() => {
             if (dropdownCode || dropdownCode === 0) {
-              addDistrict(dropdownCode);
+              addDistrict([dropdownCode]);
             }
           }}
         />
@@ -119,7 +125,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(loadAllDistrictsAction());
     },
     setSubject: subject => {
-      dispatch(setSubjectAction(subject));
+      dispatch(setDistrictSubjectAction(subject));
     },
     selectDistrict: index => {
       dispatch(selectDistrictAction(index));

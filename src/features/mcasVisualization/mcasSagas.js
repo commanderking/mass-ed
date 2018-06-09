@@ -1,10 +1,7 @@
 import { call, put, select, takeEvery } from "redux-saga/effects";
 import { mcasActionTypes } from "./mcasActions";
-import {
-  selectSelectedSchools,
-  selectSelectedSubject,
-  selectSelectedDistricts
-} from "./mcasReducer";
+import { selectSelectedSchools, selectSelectedSubject } from "./mcasReducer";
+import { selectSelectedDistrictsCodes } from "./mcasSelector";
 import { subjectsConstants } from "./mcasConstants";
 import {
   fetchSchoolArray,
@@ -21,7 +18,9 @@ const {
   LOAD_ALL_DISTRICTS_SUCCEEDED,
   LOAD_ALL_DISTRICTS_FAILED,
   LOAD_ALL_DISTRICT_MCAS_DATA_SUCCEEDED,
-  LOAD_ALL_DISTRICT_MCAS_DATA_FAILED
+  LOAD_ALL_DISTRICT_MCAS_DATA_FAILED,
+  SET_DISTRICT_SUBJECT_SUCCEEDED,
+  SET_DISTRICT_SUBJECT_FAILED
 } = mcasActionTypes;
 
 // TODO: Should be able to refactors this with fetchSelectedSchoolsForSubjectSwitch
@@ -79,7 +78,6 @@ function* fetchAllSchoolData(action) {
 function* fetchAllDistrictData(action) {
   try {
     const allDistrictData = yield call(fetchAllDistricts);
-    console.log("allDistrictData", allDistrictData);
     yield put({
       type: LOAD_ALL_DISTRICTS_SUCCEEDED,
       payload: { data: allDistrictData.data.allDistricts }
@@ -91,16 +89,15 @@ function* fetchAllDistrictData(action) {
   }
 }
 
-function* fetchDistrictMcasData(action) {
+function* addDistrictMcasData(action) {
   try {
     const subject = yield select(selectSelectedSubject);
     const studentGroup = "ALL";
     const districtMcasData = yield call(fetchDistrictsMcas, {
-      codes: [action.payload.code],
+      codes: action.payload.codes,
       subject,
       studentGroup
     });
-    console.log("districtMcasData", districtMcasData);
     yield put({
       type: LOAD_ALL_DISTRICT_MCAS_DATA_SUCCEEDED,
       payload: { districtMcas: districtMcasData.data.districtMcas }
@@ -110,25 +107,25 @@ function* fetchDistrictMcasData(action) {
   }
 }
 
-// TODO: Need to reload the selectDistricts after subject change
-/*
 function* fetchDistrictMcasDataForSelectedDistricts() {
   try {
     const subject = yield select(selectSelectedSubject);
     const studentGroup = "ALL";
-    const districts = yield select(selectSelectedDistricts);
-    if (districts) {
-      const districtMcasData = yield call(fetchDistrictsMcas, {
-        codes: districts,
-        subject,
-        studentGroup
-      });
-    }
+    const districtCodes = yield select(selectSelectedDistrictsCodes);
+
+    const districtMcasData = yield call(fetchDistrictsMcas, {
+      codes: districtCodes,
+      subject,
+      studentGroup
+    });
+    yield put({
+      type: SET_DISTRICT_SUBJECT_SUCCEEDED,
+      payload: { districtMcas: districtMcasData.data.districtMcas }
+    });
   } catch (e) {
-    console.log('')
+    yield put({ type: SET_DISTRICT_SUBJECT_FAILED, message: e.message });
   }
 }
-*/
 
 /*
   Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
@@ -138,14 +135,17 @@ function* fetchSchoolMcasDataSaga() {
   yield takeEvery("ADD_SCHOOL_REQUESTED", fetchSchoolMcasData);
   yield takeEvery("LOAD_ALL_SCHOOLS_REQUESTED", fetchAllSchoolData);
   yield takeEvery("SET_SUBJECT", fetchSelectedSchoolsForSubjectSwitch);
-  // yield takeEvery("SET_SUBJECT", fetchDistrictMcasDataForSelectedDistricts);
+  yield takeEvery(
+    mcasActionTypes.SET_DISTRICT_SUBJECT,
+    fetchDistrictMcasDataForSelectedDistricts
+  );
   yield takeEvery(
     mcasActionTypes.LOAD_ALL_DISTRICTS_REQUESTED,
     fetchAllDistrictData
   );
   yield takeEvery(
     mcasActionTypes.LOAD_ALL_DISTRICT_MCAS_DATA_REQUESTED,
-    fetchDistrictMcasData
+    addDistrictMcasData
   );
 }
 

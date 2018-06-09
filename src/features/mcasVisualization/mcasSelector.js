@@ -1,13 +1,11 @@
 import { createSelector } from "reselect";
-import { schoolGroupConstants } from "./mcasConstants";
 import _ from "lodash";
 
 import {
   selectAllSchools,
-  selectAllDistricts,
-  selectSchoolGroup,
   selectSelectedSubject,
-  selectSelectedSchools
+  selectSelectedSchools,
+  selectSelectedDistricts
 } from "./mcasReducer";
 
 const hasAlreadySelectedSchool = (schoolCodes, school) =>
@@ -28,20 +26,9 @@ export const selectAllSchoolsBySubject = createSelector(
   }
 );
 
-export const selectAllDistrictsBySubject = createSelector(
-  selectAllDistricts,
-  allDistricts => {
-    return allDistricts;
-  }
-);
-
-export const selectAllDistrictsOrSchools = createSelector(
-  selectAllSchoolsBySubject,
-  selectAllDistricts,
-  selectSchoolGroup,
-  (allSchools, allDistricts, schoolGroup) => {
-    return schoolGroup === schoolGroupConstants.DISTRICT
-      ? allDistricts
-      : allSchools;
+export const selectSelectedDistrictsCodes = createSelector(
+  selectSelectedDistricts,
+  districts => {
+    return districts.map(district => district.code);
   }
 );

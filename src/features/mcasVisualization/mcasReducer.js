@@ -104,16 +104,22 @@ const mcas = (state = initialState, action) => {
     case mcasActionTypes.LOAD_ALL_DISTRICT_MCAS_DATA_REQUESTED:
       return state;
     case mcasActionTypes.LOAD_ALL_DISTRICT_MCAS_DATA_SUCCEEDED:
-      console.log(
-        "reducer load all districts mcas data succeeded action",
-        action
-      );
       return {
         ...state,
         selectedDistricts: [
           ...state.selectedDistricts,
           action.payload.districtMcas[0]
         ]
+      };
+    case mcasActionTypes.SET_DISTRICT_SUBJECT:
+      return {
+        ...state,
+        selectedSubject: action.payload.subject
+      };
+    case mcasActionTypes.SET_DISTRICT_SUBJECT_SUCCEEDED:
+      return {
+        ...state,
+        selectedDistricts: action.payload.districtMcas
       };
     default:
       return state;

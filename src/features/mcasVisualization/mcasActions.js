@@ -19,6 +19,11 @@ export const mcasActionTypes = {
   SET_SUBJECT: "SET_SUBJECT",
   SET_SUBJECT_SUCCEEDED: "SET_SUBJECT_SUCCEEDED",
   SET_SUBJECT_FAILED: "SET_SUBJECT_FAILED",
+
+  SET_DISTRICT_SUBJECT: "SET_DISTRICT_SUBJECT",
+  SET_DISTRICT_SUBJECT_SUCCEEDED: "SET_DISTRICT_SUBJECT_SUCCEEDED",
+  SET_DISTRICT_SUBJECT_FAILED: "SET_DISTRICT_SUBJECT_FAILED",
+
   SELECT_SCHOOL: "SELECT_SCHOOL",
   DELETE_SCHOOL: "DELETE_SCHOOL",
   SET_SCHOOL_GROUP: "SET_SCHOOL_GROUP",
@@ -54,10 +59,10 @@ export const selectDistrictAction = index => {
   };
 };
 
-export const loadDistrictMcas = code => {
+export const loadDistrictMcas = codes => {
   return {
     type: mcasActionTypes.LOAD_ALL_DISTRICT_MCAS_DATA_REQUESTED,
-    payload: { code }
+    payload: { codes }
   };
 };
 
@@ -71,6 +76,13 @@ export const addSchoolAction = code => {
 export const setSubjectAction = subject => {
   return {
     type: mcasActionTypes.SET_SUBJECT,
+    payload: { subject }
+  };
+};
+
+export const setDistrictSubjectAction = subject => {
+  return {
+    type: mcasActionTypes.SET_DISTRICT_SUBJECT,
     payload: { subject }
   };
 };
