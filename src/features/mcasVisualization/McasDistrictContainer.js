@@ -102,7 +102,7 @@ class UnwrappedMcasDistrictContainer extends Component<Props, State> {
             />
           </div>
         ) : (
-          <div>No Chart</div>
+          <div>Add a District</div>
         )}
       </div>
     );

@@ -35,7 +35,7 @@ const allSchoolsQueryString = JSON.stringify({
 const createQueryStringWithSchoolCodeAndSubject = (subject, schoolCodes) => {
   return JSON.stringify({
     query: `{
-      schools(subject: "${subject}", schoolCodes: [${schoolCodes}])
+      schoolMcas(subject: "${subject}", schoolCodes: [${schoolCodes}])
       {
         subject
         name
@@ -91,7 +91,6 @@ export const fetchAllSchools = () => {
     });
 };
 
-// TODO: studentGroup should be dynamically set
 const allDistrictsQueryString = JSON.stringify({
   query: `{
   allDistricts {

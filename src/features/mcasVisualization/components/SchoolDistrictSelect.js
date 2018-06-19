@@ -18,6 +18,7 @@ const SchoolDistrictSelect = ({
   return (
     <div style={{ width: 300 }}>
       <Select
+        id="SelectId"
         style={{ width: 500 }}
         onSelect={(selectValue, option) => {
           if (selectValue) {

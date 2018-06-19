@@ -42,7 +42,6 @@ const mcas = (state = initialState, action) => {
         allSchools: action.payload.allSchoolData
       };
     case mcasActionTypes.LOAD_ALL_DISTRICTS_SUCCEEDED:
-      console.log("action", action);
       return {
         ...state,
         allDistricts: action.payload.data
@@ -57,9 +56,10 @@ const mcas = (state = initialState, action) => {
       };
 
     case mcasActionTypes.SET_SUBJECT_SUCCEEDED:
+      console.log("action.payload", action.payload);
       return {
         ...state,
-        selectedSchools: action.payload.selectedSchoolsData.data.schools
+        selectedSchools: action.payload.selectedSchoolsData.data.schoolMcas
       };
     case mcasActionTypes.SET_SUBJECT_FAILED:
       return state;
