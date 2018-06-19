@@ -11,16 +11,19 @@ import {
   fetchDistrictsMcas
 } from "./mcasDataRequests";
 const {
+  ADD_SCHOOL_REQUESTED,
   ADD_SCHOOL_SUCCEEDED,
   ADD_SCHOOL_FAILED,
   LOAD_ALL_SCHOOLS_SUCCEEDED,
   LOAD_ALL_SCHOOLS_FAILED,
+  LOAD_ALL_SCHOOLS_REQUESTED,
   LOAD_ALL_DISTRICTS_SUCCEEDED,
   LOAD_ALL_DISTRICTS_FAILED,
   LOAD_ALL_DISTRICT_MCAS_DATA_SUCCEEDED,
   LOAD_ALL_DISTRICT_MCAS_DATA_FAILED,
   SET_DISTRICT_SUBJECT_SUCCEEDED,
-  SET_DISTRICT_SUBJECT_FAILED
+  SET_DISTRICT_SUBJECT_FAILED,
+  SET_SUBJECT
 } = mcasActionTypes;
 
 // TODO: Should be able to refactors this with fetchSelectedSchoolsForSubjectSwitch
@@ -132,9 +135,9 @@ function* fetchDistrictMcasDataForSelectedDistricts() {
   Allows concurrent fetches of user.
 */
 function* fetchSchoolMcasDataSaga() {
-  yield takeEvery("ADD_SCHOOL_REQUESTED", fetchSchoolMcasData);
-  yield takeEvery("LOAD_ALL_SCHOOLS_REQUESTED", fetchAllSchoolData);
-  yield takeEvery("SET_SUBJECT", fetchSelectedSchoolsForSubjectSwitch);
+  yield takeEvery(ADD_SCHOOL_REQUESTED, fetchSchoolMcasData);
+  yield takeEvery(LOAD_ALL_SCHOOLS_REQUESTED, fetchAllSchoolData);
+  yield takeEvery(SET_SUBJECT, fetchSelectedSchoolsForSubjectSwitch);
   yield takeEvery(
     mcasActionTypes.SET_DISTRICT_SUBJECT,
     fetchDistrictMcasDataForSelectedDistricts
