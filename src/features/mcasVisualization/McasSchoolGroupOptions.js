@@ -14,6 +14,7 @@ const renderSchoolOrDistrictButtons = setSchoolGroup =>
     return (
       <Link key={option.displayName} to={option.route}>
         <Button
+          id={`${option.displayName}Button`}
           key={option.displayName}
           onClick={() => {
             setSchoolGroup(option.name);

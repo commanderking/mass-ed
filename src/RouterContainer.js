@@ -6,7 +6,7 @@ import { McasDistrictContainer } from "mcasVisualization/McasDistrictContainer";
 import { McasSchoolGroupOptions } from "mcasVisualization/McasSchoolGroupOptions";
 const McasButton = () => (
   <Link to="/mcas">
-    <Button>Mcas Data</Button>
+    <Button data-id="McasDataButton">Mcas Data</Button>
   </Link>
 );
 
