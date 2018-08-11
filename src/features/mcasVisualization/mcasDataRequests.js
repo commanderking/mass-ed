@@ -8,7 +8,7 @@ const graphQLEndpoint = "http://localhost:4000/graphql";
 const createQueryStringWithSchoolCode = code => {
   return JSON.stringify({
     query: `{
-    school(subject: "MATH", schoolCode: ${code})
+    school(subject: MATH, schoolCode: ${code})
       {
         subject
         name
@@ -35,7 +35,7 @@ const allSchoolsQueryString = JSON.stringify({
 const createQueryStringWithSchoolCodeAndSubject = (subject, schoolCodes) => {
   return JSON.stringify({
     query: `{
-      schoolMcas(subject: "${subject}", schoolCodes: [${schoolCodes}])
+      schoolMcas(subject: ${subject}, schoolCodes: [${schoolCodes}])
       {
         subject
         name
@@ -52,7 +52,7 @@ const createQueryStringWithSchoolCodeAndSubject = (subject, schoolCodes) => {
 const createQueryStringForDistrictMcas = (codes, subject, studentGroup) => {
   return JSON.stringify({
     query: `{
-      districtMcas(subject: "${subject}", codes: [${codes}], studentGroup: "${studentGroup}")
+      districtMcas(subject: ${subject}, codes: [${codes}], studentGroup: "${studentGroup}")
       {
         subject
         name
