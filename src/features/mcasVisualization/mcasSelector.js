@@ -18,10 +18,7 @@ export const selectAllSchoolsBySubject = createSelector(
   (allSchools, subject, selectedSchools) => {
     const selectedSchoolCodes = selectedSchools.map(school => school.code);
     return allSchools.filter(school => {
-      return (
-        school.subject === subject &&
-        !hasAlreadySelectedSchool(selectedSchoolCodes, school)
-      );
+      return !hasAlreadySelectedSchool(selectedSchoolCodes, school);
     });
   }
 );

@@ -25,9 +25,9 @@ const createQueryStringWithSchoolCode = code => {
 const allSchoolsQueryString = JSON.stringify({
   query: `{
   allSchools {
-    subject
     name
-    code
+    schoolCode
+    districtCode
   }
 }`
 });

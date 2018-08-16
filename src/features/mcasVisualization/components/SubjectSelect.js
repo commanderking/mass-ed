@@ -7,7 +7,7 @@ const isSelectedSubject = (subject, selectedSubject) =>
   subject === selectedSubject;
 
 const formatBackgroundColorForSubject = (subject, selectedSubject) =>
-  isSelectedSubject(subject, selectedSubject) ? "red" : "green";
+  isSelectedSubject(subject, selectedSubject) ? "#006CD6" : "gray";
 
 const renderSubjectButtons = (setSubject, selectedSubject) =>
   subjects.map(subject => (

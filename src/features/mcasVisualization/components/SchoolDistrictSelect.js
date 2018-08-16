@@ -41,7 +41,8 @@ const SchoolDistrictSelect = ({
               key={index.toString()}
               value={name}
               index={index}
-              code={school.code}
+              // TEMPORARY - schoolCode is from returned school data, school.code is for district right now
+              code={school.schoolCode || school.code}
             >
               {name}
             </Option>
