@@ -18,7 +18,7 @@ const SchoolDistrictSelect = ({
   return (
     <div style={{ width: 300 }}>
       <Select
-        id="SelectId"
+        id="SchoolDistrictSelect"
         style={{ width: 500 }}
         onSelect={(selectValue, option) => {
           if (selectValue) {
@@ -36,13 +36,15 @@ const SchoolDistrictSelect = ({
         {allSchools.map((school, index) => {
           // TODO: Selector should really handle any parsing before we get into the component
           const name = parseSchoolNameFromCompleteName(school.name);
+          // TEMPORARY - schoolCode is from returned school data, school.code is for district right now
+          const code = school.schoolCode || school.code;
           return (
             <Option
+              id={`SchoolDistrictOption-${code}`}
               key={index.toString()}
               value={name}
               index={index}
-              // TEMPORARY - schoolCode is from returned school data, school.code is for district right now
-              code={school.schoolCode || school.code}
+              code={code}
             >
               {name}
             </Option>

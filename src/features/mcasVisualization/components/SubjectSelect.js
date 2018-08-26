@@ -12,6 +12,7 @@ const formatBackgroundColorForSubject = (subject, selectedSubject) =>
 const renderSubjectButtons = (setSubject, selectedSubject) =>
   subjects.map(subject => (
     <Button
+      id={`subjectSelect-${subject}-button`}
       key={`subjectSelect-${subject}-button`}
       style={{
         backgroundColor: formatBackgroundColorForSubject(

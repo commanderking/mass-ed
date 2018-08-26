@@ -15,7 +15,8 @@ export const SchoolLabel = ({ name, code, deleteSchool, index }: Props) => {
     <div className="schoolLabelWrapper">
       <div>
         <Button
-          className="closeGraphButton"
+          id={`DeleteSchoolDistrict-${code}-button`}
+          className="deleteSchoolDistrictButton"
           onClick={() => {
             deleteSchool(code);
           }}

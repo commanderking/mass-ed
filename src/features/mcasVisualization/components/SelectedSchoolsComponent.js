@@ -3,7 +3,7 @@ import { parseSchoolNameFromCompleteName } from "../../../common/utils/formatUti
 import { SchoolLabel } from "./SchoolLabel";
 
 const SelectedSchoolsComponent = ({ selectedSchools, deleteSchool }) => (
-  <div className="schoolLabelsWrapper">
+  <div id="SelectedSchoolsComponent" className="schoolLabelsWrapper">
     <h3>Selected Schools</h3>
     {selectedSchools.map((school, index) => {
       const { name, code } = school;

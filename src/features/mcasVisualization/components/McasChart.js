@@ -46,7 +46,7 @@ type Props = {
 
 const McasChart = ({ selectedSchools, setSubject, selectedSubject }: Props) => {
   return (
-    <div className="mcasChartWrapper">
+    <div id="McasChart" className="mcasChartWrapper">
       <h3>MCAS 2017 Scores</h3>
       <SubjectSelect
         setSubject={setSubject}
