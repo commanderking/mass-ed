@@ -1,8 +1,9 @@
 describe("App", function() {
+  const baseUrl = Cypress.env("baseURL");
   const actonBoxboroughDistrictCode = 6000000;
   const arlingtonDistrictCode = 100000;
-  it("visits the district mcas page, displays charts and selected schools when districts added", function() {
-    cy.visit("localhost:3000");
+  it("visits the district mcas page, displays charts and selected schools when districts added", () => {
+    cy.visit(baseUrl);
     cy.get('button[data-id="McasDataButton"]').click();
     cy.url().should("include", "/mcas");
 
@@ -24,7 +25,7 @@ describe("App", function() {
     cy.get("#SelectedSchoolsComponent").should("have.length", 1);
   });
   it("can delete districts", () => {
-    cy.visit("localhost:3000/mcas/district");
+    cy.visit(`${baseUrl}/mcas/district`);
 
     cy.get("#SchoolDistrictSelect").click();
     cy.get(`#SchoolDistrictOption-${actonBoxboroughDistrictCode}`).click();
